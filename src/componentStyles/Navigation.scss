@@ -1,0 +1,16 @@
+@import "../StyleVariables.scss";
+
+.primaryNavigation {
+  display: flex;
+  justify-content: center;
+  background-color: $backgroundColorNav;
+  margin-bottom: 200px;
+}
+
+.primaryNavigation li {
+  list-style: none;
+  padding-top: 0.6em;
+  padding-bottom: 1em;
+  margin-right: 1.2em;
+  margin-left: 1.2em;
+}

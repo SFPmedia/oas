@@ -1,0 +1,11 @@
+@import "../StyleVariables.scss";
+
+.aboutPage {
+  position: fixed;
+  width: 100%;
+  background-color: $backgroundColorFooter;
+  padding-top: 0.2em;
+  padding-bottom: 1em;
+  bottom: 0em;
+  opacity: 80%;
+}
