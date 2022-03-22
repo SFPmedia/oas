@@ -10,7 +10,10 @@ $borderRadius: 5px;
 
 $listMinHeight: 2000px;
 
+$backgroundBody: rgb(234, 255, 231);
 $backgroundColorFuture: rgb(150, 150, 150);
-$backgroundColorCurrent: rgb(175, 175, 175);
-$backgroundColorFooter: rgb(110, 110, 110);
+$backgroundColorCurrent: rgba(190, 206, 187, 0.103);
+$backgroundColorCurrentActivity: rgba(190, 206, 187, 0.459);
+$backgroundColorFooter: rgba(190, 206, 187, 0.26);
 $backgroundColorNav: rgb(201, 201, 201);
+$backgroundFilterList: rgba(190, 206, 187, 0.651);

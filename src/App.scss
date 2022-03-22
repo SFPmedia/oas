@@ -1,7 +1,8 @@
 @import "./StyleVariables.scss";
 
-.App {
-  text-align: center;
+.body {
+  width: 100%;
+  background-color: $backgroundBody;
 }
 
 .App-header {
@@ -16,7 +17,6 @@
 }
 
 h1 {
-  color: red;
   font-size: $h1FontSize;
 }
 

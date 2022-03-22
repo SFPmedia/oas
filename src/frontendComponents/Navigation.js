@@ -1,4 +1,6 @@
 import "../componentStyles/Navigation.scss";
+import React from "react";
+import PropTypes from "prop-types";
 
 export default function Navigation() {
   return (
@@ -13,6 +15,10 @@ export default function Navigation() {
 }
 
 function Link(props) {
+  Link.propTypes = {
+    link: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+  };
   return (
     <li>
       <a href={props.link}>{props.name}</a>

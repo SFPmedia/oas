@@ -1,17 +1,18 @@
+import React from "react";
 import "./App.scss";
-import Navigation from "./components/Navigation";
-import Footer from "./components/Footer";
-import CurrentEvent from "./components/CurrentEvents";
-import FutureEvents from "./components/FutureEvents";
+import Navigation from "./frontendComponents/Navigation";
+import Footer from "./frontendComponents/Footer";
+import AllActivities from "./frontendComponents/AllActivities";
+import AllActivitiesNU from "./frontendComponents/AllActivitiesNU";
 
 function App() {
   return (
     <div className="App">
       <Navigation />
-      <h1>All Tournaments</h1>
+      <h1>Outdoor Activities</h1>
       <div className="listArea">
-        <CurrentEvent />
-        <FutureEvents />
+        <AllActivities />
+        <AllActivitiesNU />
       </div>
       <Footer />
     </div>
