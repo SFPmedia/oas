@@ -1,3 +1,6 @@
+// Abbreviation explanations:
+// "ls" = local storage, "SL" = Search List
+
 import "../componentStyles/ActivityList.scss";
 import "../backendComponents/CreateGoogleMap";
 import React from "react";
@@ -8,7 +11,6 @@ const displayNone = "none";
 const heightAuto = "1086px";
 const heightSmall = "75px";
 let setHeight = "1086px";
-const currentMoment = new Date();
 
 // expandList() is used for expanding and detracting the individual items on the activity list
 function expandList(listExpandID) {
@@ -80,8 +82,8 @@ function expandListOpacity(listOpacityID) {
 // expandListDisplay() removes the content of the list items, to make sure that the page as a whole will not have a scroll bar going on forever
 // with the majority being blank space.
 // It is activated after a couple of seconds when a list detracts and immedially when it expands.
-function expandListDisplay(props) {
-  var listIDProp = props;
+function expandListDisplay(listDisplayID) {
+  var listIDProp = listDisplayID;
 
   // Activity Introduction
   if (
@@ -216,7 +218,7 @@ export default class AllActivities extends React.Component {
   componentDidMount() {
     if (
       window.localStorage.getItem("activities") &&
-      currentMoment.getTime() <= window.localStorage.getItem("lsExpirationTime")
+      new Date().getTime() <= window.localStorage.getItem("lsExpirationTime")
     ) {
       const getLocalStorage = JSON.parse(
         window.localStorage.getItem("activities")
@@ -228,12 +230,12 @@ export default class AllActivities extends React.Component {
       window.localStorage.removeItem("activities");
       window.localStorage.removeItem("lsExpirationTime");
       axios
-        .get(`http://sfpmedia.dk/db_api_oas/readActivities.php`)
+        .get(`https://sfpmedia.dk/db_api_oas/readActivities.php`)
         .then((res) => {
           window.localStorage.setItem("activities", JSON.stringify(res.data));
           window.localStorage.setItem(
             "lsExpirationTime",
-            JSON.stringify(currentMoment.getTime() + 1000 * 60 * 60 * 18)
+            JSON.stringify(new Date().getTime() + 1000 * 60 * 60 * 18)
           );
           const getLocalStorage = JSON.parse(
             window.localStorage.getItem("activities")
@@ -311,12 +313,12 @@ export default class AllActivities extends React.Component {
     window.localStorage.removeItem("activities");
     window.localStorage.removeItem("lsExpirationTime");
     axios
-      .get(`http://sfpmedia.dk/db_api_oas/readActivities.php`)
+      .get(`https://sfpmedia.dk/db_api_oas/readActivities.php`)
       .then((res) => {
         window.localStorage.setItem("activities", JSON.stringify(res.data));
         window.localStorage.setItem(
           "lsExpirationTime",
-          JSON.stringify(currentMoment.getTime() + 1000 * 60 * 60 * 18)
+          JSON.stringify(new Date().getTime() + 1000 * 60 * 60 * 18)
         );
         const getLocalStorage = JSON.parse(
           window.localStorage.getItem("activities")
@@ -347,9 +349,9 @@ export default class AllActivities extends React.Component {
         </button>
         <h2 className="listTitle">All Activities</h2>
         <div id="filterArea">
-          <div className="dropdown">
-            <button className="dropbtn">Search by</button>
-            <div className="dropdown-content">
+          <div className="dropdownSL">
+            <button className="searchbtn">Search by</button>
+            <div className="dropdownContentSL">
               <button
                 onClick={() => this.searchSelect("Name")}
                 style={{ backgroundColor: this.searchSelectColor("name") }}

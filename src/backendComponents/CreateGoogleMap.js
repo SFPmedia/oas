@@ -1,6 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 export default function CreateGoogleMap(props) {
+  CreateGoogleMap.propTypes = {
+    mapURL: PropTypes.string.isRequired,
+  };
   return (
     <div className="maps">
       <iframe
