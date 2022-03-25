@@ -485,7 +485,7 @@ export default class AllActivities extends React.Component {
 
               {activity.price ? (
                 <p>
-                  Price: <br /> {activity.price}
+                  Price: <br /> {activity.price},-
                 </p>
               ) : (
                 <p>

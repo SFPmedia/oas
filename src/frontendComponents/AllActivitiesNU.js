@@ -168,31 +168,13 @@ function expandListDisplay(props) {
   }
 }
 
-function getCurrentLocation() {
-  function latitudeSuccess(position) {
-    return console.log("Latitude: " + position.coords.latitude);
-  }
-
-  function longitudeSuccess(position) {
-    return console.log("Latitude: " + position.coords.longitude);
-  }
-
-  function accuracySuccess(position) {
-    return console.log("Latitude: " + position.coords.accuracy);
-  }
-
-  navigator.geolocation.getCurrentPosition(latitudeSuccess);
-  navigator.geolocation.getCurrentPosition(longitudeSuccess);
-  navigator.geolocation.getCurrentPosition(accuracySuccess);
-}
-
 export default class AllActivitiesNU extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       activitiesNU: [],
-      userSearch: " Name",
-      searchInput: "name",
+      userSearch: 50,
+      searchInputNU: "name",
     };
   }
 
@@ -231,11 +213,84 @@ export default class AllActivitiesNU extends React.Component {
     }
   }
 
+  getCurrentLocation = () => {
+    let latArr = [];
+    let lonArr = [];
+    let distanceResult = [];
+    let i;
+    let j;
+    const filterInputValue = document.getElementById("filterInputNU").value;
+    const getLocalStorage = JSON.parse(
+      window.localStorage.getItem("activitiesNU")
+    );
+    const activityArr = this.state.activitiesNU;
+    let searchResultNU = [];
+
+    for (i = 0; i < activityArr.length; i++) {
+      latArr.push(activityArr[i].latitude);
+      lonArr.push(activityArr[i].longitude);
+    }
+
+    console.log("latArr: " + latArr);
+    console.log("lonArr: " + lonArr);
+
+    function latitudeSuccess(position) {
+      // Continue from here!
+      // Before the "j" for-loop. Make antoher for-loop, which determines if the distance between user position and activity position is greater than
+      // the user input.
+      for (j = 0; j < latArr.length; j++) {
+        if (
+          position.coords.latitude < latArr[j] &&
+          position.coords.longitude > lonArr[j]
+        ) {
+          distanceResult.push(1);
+        } else {
+          distanceResult.push(0);
+        }
+      }
+
+      console.log("Distance result: " + distanceResult);
+    }
+    /*
+    function longitudeSuccess(position) {
+      return console.log("Latitude: " + position.coords.longitude);
+    }
+*/
+    function accuracySuccess(position) {
+      return console.log("Accuracy: " + position.coords.accuracy + " meters");
+    }
+
+    navigator.geolocation.getCurrentPosition(latitudeSuccess);
+    //navigator.geolocation.getCurrentPosition(longitudeSuccess);
+    navigator.geolocation.getCurrentPosition(accuracySuccess);
+
+    for (let i = 0; i < getLocalStorage.length; i++) {
+      var filterThisInputNU = getLocalStorage[i].name.toLowerCase();
+      var filteredInputNU = filterThisInputNU.indexOf(
+        filterInputValue.toLowerCase()
+      );
+      if (filteredInputNU > 0) {
+        searchResultNU.push(getLocalStorage[i]);
+      }
+    }
+    this.setState({
+      activities: searchResultNU,
+    });
+  };
+
   render() {
     return (
       <div className="ActivityListArea">
         <h2>Activities Near You</h2>
-        <button onClick={getCurrentLocation}>Get the current location</button>
+        <button onClick={this.getCurrentLocation}>
+          Get the current location
+        </button>
+        <input
+          id="filterInputNU"
+          type="number"
+          placeholder={"Kilometer radius: " + this.state.userSearch + "?"}
+          onChange={this.handleFilterActivityList}
+        />
         {this.state.activitiesNU.map((activityNU) => [
           <div
             className="ActivityList"
