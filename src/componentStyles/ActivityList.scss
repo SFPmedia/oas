@@ -44,6 +44,11 @@ h1 {
   height: 25px;
 }
 
+#filterArea p {
+  margin: 0 0 0 1em;
+  overflow: visible;
+}
+
 .ActivityList {
   position: relative;
   display: grid;
