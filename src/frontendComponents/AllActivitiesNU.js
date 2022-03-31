@@ -2,158 +2,187 @@
 // "NU" = Near User, "ls" = local storage, "AL" = Activity List, "GM" = Google Maps
 
 import "../componentStyles/ActivityList.scss";
-import "../backendComponents/CreateGoogleMap";
 import React from "react";
-import axios from "axios";
 
-const displayBlock = "block";
-const displayNone = "none";
-const heightAuto = "1086px";
-const heightSmall = "75px";
-let setHeight = "1086px";
-const currentMoment = new Date();
+const displayBlockNU = "block";
+const displayNoneNU = "none";
+const heightAutoNU = "1086px";
+const heightSmallNU = "75px";
+let setHeightNU = "1086px";
+const currentMomentNU = new Date();
 
 // expandList() is used for expanding and detracting the individual items on the activity list
-function expandList(listExpandID) {
-  if (
-    document.getElementById("ALNU" + listExpandID).style.height !==
-    String(heightAuto)
-  ) {
-    setHeight = heightAuto;
-  } else {
-    setHeight = heightSmall;
+function expandList(listExpandIDNU) {
+  const listExpandHeightNU = document.getElementById("ALNU" + listExpandIDNU)
+    .style.height;
+
+  switch (listExpandHeightNU) {
+    case heightAutoNU:
+      setHeightNU = heightSmallNU;
+      break;
+    default:
+      setHeightNU = heightAutoNU;
   }
-  document.getElementById("ALNU" + listExpandID).style.height = setHeight;
+  document.getElementById("ALNU" + listExpandIDNU).style.height = setHeightNU;
 }
 
 // expandListOpacity() gives an animated opacity effect on the content of the items, either on or off, whenever the expandList() function is activated
 function expandListOpacity(listOpacityID) {
   const opacityFull = 1;
   const opacityNone = 0;
+  const aiOpacity = document.getElementById("AINU" + listOpacityID).style
+    .opacity;
+  const allOpacity = document.getElementById("ALLNU" + listOpacityID).style
+    .opacity;
+  const agiOpacity = document.getElementById("AGINU" + listOpacityID).style
+    .opacity;
+  const agpOpacity = document.getElementById("AGPNU" + listOpacityID).style
+    .opacity;
+  const gmOpacity = document.getElementById("GMNU" + listOpacityID).style
+    .opacity;
+
   // Activity Introduction
-  if (
-    document.getElementById("AINU" + listOpacityID).style.opacity !==
-    String(opacityFull)
-  ) {
-    document.getElementById("AINU" + listOpacityID).style.opacity = opacityFull;
-  } else {
-    document.getElementById("AINU" + listOpacityID).style.opacity = opacityNone;
+  switch (aiOpacity) {
+    case String(opacityFull):
+      document.getElementById("AINU" + listOpacityID).style.opacity =
+        opacityNone;
+      break;
+    default:
+      document.getElementById("AINU" + listOpacityID).style.opacity =
+        opacityFull;
   }
 
   // Activity Local Location
-  if (
-    document.getElementById("ALLNU" + listOpacityID).style.opacity !==
-    String(opacityFull)
-  ) {
-    document.getElementById("ALLNU" + listOpacityID).style.opacity =
-      opacityFull;
-  } else {
-    document.getElementById("ALLNU" + listOpacityID).style.opacity =
-      opacityNone;
+  switch (allOpacity) {
+    case String(opacityFull):
+      document.getElementById("ALLNU" + listOpacityID).style.opacity =
+        opacityNone;
+      break;
+    default:
+      document.getElementById("ALLNU" + listOpacityID).style.opacity =
+        opacityFull;
   }
 
   // Activity General Information
-  if (
-    document.getElementById("AGINU" + listOpacityID).style.opacity !==
-    String(opacityFull)
-  ) {
-    document.getElementById("AGINU" + listOpacityID).style.opacity =
-      opacityFull;
-  } else {
-    document.getElementById("AGINU" + listOpacityID).style.opacity =
-      opacityNone;
+  switch (agiOpacity) {
+    case String(opacityFull):
+      document.getElementById("AGINU" + listOpacityID).style.opacity =
+        opacityNone;
+      break;
+    default:
+      document.getElementById("AGINU" + listOpacityID).style.opacity =
+        opacityFull;
   }
 
   // Activity Global Position
-  if (
-    document.getElementById("AGPNU" + listOpacityID).style.opacity !==
-    String(opacityFull)
-  ) {
-    document.getElementById("AGPNU" + listOpacityID).style.opacity =
-      opacityFull;
-  } else {
-    document.getElementById("AGPNU" + listOpacityID).style.opacity =
-      opacityNone;
+  switch (agpOpacity) {
+    case String(opacityFull):
+      document.getElementById("AGPNU" + listOpacityID).style.opacity =
+        opacityNone;
+      break;
+    default:
+      document.getElementById("AGPNU" + listOpacityID).style.opacity =
+        opacityFull;
   }
 
   // Google Map
-  if (
-    document.getElementById("GMNU" + listOpacityID).style.opacity !==
-    String(opacityFull)
-  ) {
-    document.getElementById("GMNU" + listOpacityID).style.opacity = opacityFull;
-  } else {
-    document.getElementById("GMNU" + listOpacityID).style.opacity = opacityNone;
+  switch (gmOpacity) {
+    case String(opacityFull):
+      document.getElementById("GMNU" + listOpacityID).style.opacity =
+        opacityNone;
+      break;
+    default:
+      document.getElementById("GMNU" + listOpacityID).style.opacity =
+        opacityFull;
   }
 }
 
 // expandListDisplay() removes the content of the list items, to make sure that the page as a whole will not have a scroll bar going on forever
 // with the majority being blank space.
 // It is activated after a couple of seconds when a list detracts and immedially when it expands.
-function expandListDisplay(listID) {
+function expandListDisplay(listDisplayIDNU) {
+  const aiDisplayNU = document.getElementById("AINU" + listDisplayIDNU).style
+    .display;
+  const allDisplayNU = document.getElementById("ALLNU" + listDisplayIDNU).style
+    .display;
+  const agiDisplayNU = document.getElementById("AGINU" + listDisplayIDNU).style
+    .display;
+  const agpDisplayNU = document.getElementById("AGPNU" + listDisplayIDNU).style
+    .display;
+  const gmDisplayNU = document.getElementById("GMNU" + listDisplayIDNU).style
+    .display;
+  const objectHeightNU = document.getElementById("ALNU" + listDisplayIDNU).style
+    .height;
+
   // Activity Introduction
-  if (
-    document.getElementById("AINU" + listID).style.display !==
-    String(displayBlock)
-  ) {
-    document.getElementById("AINU" + listID).style.display = displayBlock;
-  } else {
-    setTimeout(function () {
-      if (document.getElementById(listID).style.height === String(heightSmall))
-        document.getElementById("AINU" + listID).style.display = displayNone;
-    }, 2000);
+  switch (aiDisplayNU) {
+    case String(displayBlockNU):
+      setTimeout(function () {
+        if (objectHeightNU === heightSmallNU) {
+          document.getElementById("AINU" + listDisplayIDNU).style.display =
+            displayNoneNU;
+        }
+      }, 2000);
+      break;
+    default:
+      document.getElementById("AINU" + listDisplayIDNU).style.display =
+        displayBlockNU;
   }
 
   // Activity Local Location
-  if (
-    document.getElementById("ALLNU" + listID).style.display !==
-    String(displayBlock)
-  ) {
-    document.getElementById("ALLNU" + listID).style.display = displayBlock;
-  } else {
-    setTimeout(function () {
-      if (document.getElementById(listID).style.height === heightSmall)
-        document.getElementById("ALLNU" + listID).style.display = displayNone;
-    }, 2000);
+  switch (allDisplayNU) {
+    case String(displayBlockNU):
+      setTimeout(function () {
+        if (objectHeightNU === heightSmallNU)
+          document.getElementById("ALLNU" + listDisplayIDNU).style.display =
+            displayNoneNU;
+      }, 2000);
+      break;
+    default:
+      document.getElementById("ALLNU" + listDisplayIDNU).style.display =
+        displayBlockNU;
   }
 
   // Activity General Information
-  if (
-    document.getElementById("AGINU" + listID).style.display !==
-    String(displayBlock)
-  ) {
-    document.getElementById("AGINU" + listID).style.display = displayBlock;
-  } else {
-    setTimeout(function () {
-      if (document.getElementById(listID).style.height === heightSmall)
-        document.getElementById("AGINU" + listID).style.display = displayNone;
-    }, 2000);
+  switch (agiDisplayNU) {
+    case String(displayBlockNU):
+      setTimeout(function () {
+        if (objectHeightNU === heightSmallNU)
+          document.getElementById("AGINU" + listDisplayIDNU).style.display =
+            displayNoneNU;
+      }, 2000);
+      break;
+    default:
+      document.getElementById("AGINU" + listDisplayIDNU).style.display =
+        displayBlockNU;
   }
 
   // Activity Global Position
-  if (
-    document.getElementById("AGPNU" + listID).style.display !==
-    String(displayBlock)
-  ) {
-    document.getElementById("AGPNU" + listID).style.display = displayBlock;
-  } else {
-    setTimeout(function () {
-      if (document.getElementById(listID).style.height === heightSmall)
-        document.getElementById("AGPNU" + listID).style.display = displayNone;
-    }, 2000);
+  switch (agpDisplayNU) {
+    case String(displayBlockNU):
+      setTimeout(function () {
+        if (objectHeightNU === heightSmallNU)
+          document.getElementById("AGPNU" + listDisplayIDNU).style.display =
+            displayNoneNU;
+      }, 2000);
+      break;
+    default:
+      document.getElementById("AGPNU" + listDisplayIDNU).style.display =
+        displayBlockNU;
   }
 
   // Google Map
-  if (
-    document.getElementById("GMNU" + listID).style.display !==
-    String(displayBlock)
-  ) {
-    document.getElementById("GMNU" + listID).style.display = displayBlock;
-  } else {
-    setTimeout(function () {
-      if (document.getElementById(listID).style.height === heightSmall)
-        document.getElementById("GMNU" + listID).style.display = displayNone;
-    }, 2000);
+  switch (gmDisplayNU) {
+    case String(displayBlockNU):
+      setTimeout(function () {
+        if (objectHeightNU === heightSmallNU)
+          document.getElementById("GMNU" + listDisplayIDNU).style.display =
+            displayNoneNU;
+      }, 2000);
+      break;
+    default:
+      document.getElementById("GMNU" + listDisplayIDNU).style.display =
+        displayBlockNU;
   }
 }
 
@@ -168,38 +197,38 @@ export default class AllActivitiesNU extends React.Component {
 
   componentDidMount() {
     if (
-      window.localStorage.getItem("activitiesNU") &&
-      currentMoment.getTime() <=
-        window.localStorage.getItem("lsExpirationTimeNU")
+      localStorage.getItem("activitiesNU") &&
+      currentMomentNU.getTime() <= localStorage.getItem("lsExpirationTimeNU")
     ) {
       const getLocalStorageNU = JSON.parse(
-        window.localStorage.getItem("activitiesNU")
+        localStorage.getItem("activitiesNU")
       );
       const activitiesNU = getLocalStorageNU;
       this.setState({ activitiesNU });
       console.log("LocalStorage activitiesNU have been found. Using those.");
     } else {
-      window.localStorage.removeItem("activitiesNU");
-      window.localStorage.removeItem("lsExpirationTimeNU");
-      axios
-        .get(`http://sfpmedia.dk/db_api_oas/readActivities.php`)
-        .then((res) => {
-          window.localStorage.setItem("activitiesNU", JSON.stringify(res.data));
-          window.localStorage.setItem(
+      localStorage.removeItem("activitiesNU");
+      localStorage.removeItem("lsExpirationTimeNU");
+      fetch("https://sfpmedia.dk/db_api_oas/readActivities.php")
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          localStorage.setItem("activitiesNU", JSON.stringify(data));
+          localStorage.setItem(
             "lsExpirationTimeNU",
-            JSON.stringify(currentMoment.getTime() + 1000 * 60 * 60 * 18)
+            JSON.stringify(new Date().getTime() + 1000 * 60 * 60 * 18)
           );
-          const getLocalStorageNU = JSON.parse(
-            window.localStorage.getItem("activitiesNU")
+          const getLocalStorage = JSON.parse(
+            localStorage.getItem("activitiesNU")
           );
-          const activitiesNU = getLocalStorageNU;
+          const activitiesNU = getLocalStorage;
           this.setState({ activitiesNU });
           console.log(
             "LocalStorage activitiesNU were not found. Getting and using new ones."
           );
         });
     }
-
     navigator.geolocation.getCurrentPosition(this.accuracySuccess);
   }
 
@@ -212,9 +241,7 @@ export default class AllActivitiesNU extends React.Component {
     let k;
     let userInput = document.getElementById("filterInputNU").value;
 
-    const getLocalStorageNU = JSON.parse(
-      window.localStorage.getItem("activitiesNU")
-    );
+    const getLocalStorageNU = JSON.parse(localStorage.getItem("activitiesNU"));
     const activityArr = getLocalStorageNU;
 
     for (i = 0; i < activityArr.length; i++) {
@@ -284,18 +311,20 @@ export default class AllActivitiesNU extends React.Component {
 
   // forceListUpdateNU() gives the user a way to clear the local storage, get the latest data from the server and then insert that into the local storage and "this.state.activities" state.
   forceListUpdateNU = () => {
-    window.localStorage.removeItem("activitiesNU");
-    window.localStorage.removeItem("lsExpirationTimeNU");
-    axios
-      .get(`https://sfpmedia.dk/db_api_oas/readActivities.php`)
-      .then((res) => {
-        window.localStorage.setItem("activitiesNU", JSON.stringify(res.data));
-        window.localStorage.setItem(
+    localStorage.removeItem("activitiesNU");
+    localStorage.removeItem("lsExpirationTimeNU");
+    fetch("https://sfpmedia.dk/db_api_oas/readActivities.php")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        localStorage.setItem("activitiesNU", JSON.stringify(data));
+        localStorage.setItem(
           "lsExpirationTimeNU",
           JSON.stringify(new Date().getTime() + 1000 * 60 * 60 * 18)
         );
         const getLocalStorage = JSON.parse(
-          window.localStorage.getItem("activitiesNU")
+          localStorage.getItem("activitiesNU")
         );
         const activitiesNU = getLocalStorage;
         this.setState({ activitiesNU });
@@ -309,9 +338,14 @@ export default class AllActivitiesNU extends React.Component {
   render() {
     return (
       <div className="ActivityListArea">
-        <button className="forceListUpdate" onClick={this.forceListUpdateNU}>
-          Force Latest Update
-        </button>
+        <div className="activityListTop">
+          <button className="forceListUpdate" onClick={this.forceListUpdateNU}>
+            Force Latest Update
+          </button>
+          <p className="userAccuracy">
+            User accuracy: {this.state.positionAccuracy}m
+          </p>
+        </div>
         <h2 className="listTitle">Activities Near You</h2>
         <div id="filterArea">
           <input
@@ -320,10 +354,6 @@ export default class AllActivitiesNU extends React.Component {
             placeholder={"Search in Kilometer radius around you"}
             onChange={this.insertNewListNU}
           />
-          <p>
-            Accuracy of user location: Within {this.state.positionAccuracy}{" "}
-            meters
-          </p>
         </div>
         {this.state.activitiesNU.map((activityNU) => [
           <div

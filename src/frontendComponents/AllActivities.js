@@ -2,9 +2,7 @@
 // "ls" = local storage, "SL" = Search List
 
 import "../componentStyles/ActivityList.scss";
-import "../backendComponents/CreateGoogleMap";
 import React from "react";
-import axios from "axios";
 
 const displayBlock = "block";
 const displayNone = "none";
@@ -14,68 +12,81 @@ let setHeight = "1086px";
 
 // expandList() is used for expanding and detracting the individual items on the activity list
 function expandList(listExpandID) {
-  if (
-    document.getElementById(listExpandID).style.height !== String(heightAuto)
-  ) {
-    setHeight = heightAuto;
-  } else {
-    setHeight = heightSmall;
+  const listExpandHeight = document.getElementById("AL" + listExpandID).style
+    .height;
+
+  switch (listExpandHeight) {
+    case heightAuto:
+      setHeight = heightSmall;
+      break;
+    default:
+      setHeight = heightAuto;
   }
-  document.getElementById(listExpandID).style.height = setHeight;
+  document.getElementById("AL" + listExpandID).style.height = setHeight;
 }
 
 // expandListOpacity() gives an animated opacity effect on the content of the items, either on or off, whenever the expandList() function is activated
 function expandListOpacity(listOpacityID) {
   const opacityFull = 1;
   const opacityNone = 0;
+  const aiOpacity = document.getElementById("AI" + listOpacityID).style.opacity;
+  const allOpacity = document.getElementById("ALL" + listOpacityID).style
+    .opacity;
+  const agiOpacity = document.getElementById("AGI" + listOpacityID).style
+    .opacity;
+  const agpOpacity = document.getElementById("AGP" + listOpacityID).style
+    .opacity;
+  const gmOpacity = document.getElementById("GM" + listOpacityID).style.opacity;
+
   // Activity Introduction
-  if (
-    document.getElementById("AI" + listOpacityID).style.opacity !==
-    String(opacityFull)
-  ) {
-    document.getElementById("AI" + listOpacityID).style.opacity = opacityFull;
-  } else {
-    document.getElementById("AI" + listOpacityID).style.opacity = opacityNone;
+  switch (aiOpacity) {
+    case String(opacityFull):
+      document.getElementById("AI" + listOpacityID).style.opacity = opacityNone;
+      break;
+    default:
+      document.getElementById("AI" + listOpacityID).style.opacity = opacityFull;
   }
 
   // Activity Local Location
-  if (
-    document.getElementById("ALL" + listOpacityID).style.opacity !==
-    String(opacityFull)
-  ) {
-    document.getElementById("ALL" + listOpacityID).style.opacity = opacityFull;
-  } else {
-    document.getElementById("ALL" + listOpacityID).style.opacity = opacityNone;
+  switch (allOpacity) {
+    case String(opacityFull):
+      document.getElementById("ALL" + listOpacityID).style.opacity =
+        opacityNone;
+      break;
+    default:
+      document.getElementById("ALL" + listOpacityID).style.opacity =
+        opacityFull;
   }
 
   // Activity General Information
-  if (
-    document.getElementById("AGI" + listOpacityID).style.opacity !==
-    String(opacityFull)
-  ) {
-    document.getElementById("AGI" + listOpacityID).style.opacity = opacityFull;
-  } else {
-    document.getElementById("AGI" + listOpacityID).style.opacity = opacityNone;
+  switch (agiOpacity) {
+    case String(opacityFull):
+      document.getElementById("AGI" + listOpacityID).style.opacity =
+        opacityNone;
+      break;
+    default:
+      document.getElementById("AGI" + listOpacityID).style.opacity =
+        opacityFull;
   }
 
   // Activity Global Position
-  if (
-    document.getElementById("AGP" + listOpacityID).style.opacity !==
-    String(opacityFull)
-  ) {
-    document.getElementById("AGP" + listOpacityID).style.opacity = opacityFull;
-  } else {
-    document.getElementById("AGP" + listOpacityID).style.opacity = opacityNone;
+  switch (agpOpacity) {
+    case String(opacityFull):
+      document.getElementById("AGP" + listOpacityID).style.opacity =
+        opacityNone;
+      break;
+    default:
+      document.getElementById("AGP" + listOpacityID).style.opacity =
+        opacityFull;
   }
 
   // Google Map
-  if (
-    document.getElementById("GM" + listOpacityID).style.opacity !==
-    String(opacityFull)
-  ) {
-    document.getElementById("GM" + listOpacityID).style.opacity = opacityFull;
-  } else {
-    document.getElementById("GM" + listOpacityID).style.opacity = opacityNone;
+  switch (gmOpacity) {
+    case String(opacityFull):
+      document.getElementById("GM" + listOpacityID).style.opacity = opacityNone;
+      break;
+    default:
+      document.getElementById("GM" + listOpacityID).style.opacity = opacityFull;
   }
 }
 
@@ -83,73 +94,85 @@ function expandListOpacity(listOpacityID) {
 // with the majority being blank space.
 // It is activated after a couple of seconds when a list detracts and immedially when it expands.
 function expandListDisplay(listDisplayID) {
-  var listIDProp = listDisplayID;
+  const aiDisplay = document.getElementById("AI" + listDisplayID).style.display;
+  const allDisplay = document.getElementById("ALL" + listDisplayID).style
+    .display;
+  const agiDisplay = document.getElementById("AGI" + listDisplayID).style
+    .display;
+  const agpDisplay = document.getElementById("AGP" + listDisplayID).style
+    .display;
+  const gmDisplay = document.getElementById("GM" + listDisplayID).style.display;
+  const objectHeight = document.getElementById("AL" + listDisplayID).style
+    .height;
 
   // Activity Introduction
-  if (
-    document.getElementById("AI" + listIDProp).style.display !==
-    String(displayBlock)
-  ) {
-    document.getElementById("AI" + listIDProp).style.display = displayBlock;
-  } else {
-    setTimeout(function () {
-      if (
-        document.getElementById(listIDProp).style.height === String(heightSmall)
-      )
-        document.getElementById("AI" + listIDProp).style.display = displayNone;
-    }, 2000);
+  switch (aiDisplay) {
+    case String(displayBlock):
+      setTimeout(function () {
+        if (objectHeight === heightSmall)
+          document.getElementById("AI" + listDisplayID).style.display =
+            displayNone;
+      }, 2000);
+      break;
+    default:
+      document.getElementById("AI" + listDisplayID).style.display =
+        displayBlock;
   }
 
   // Activity Local Location
-  if (
-    document.getElementById("ALL" + listIDProp).style.display !==
-    String(displayBlock)
-  ) {
-    document.getElementById("ALL" + listIDProp).style.display = displayBlock;
-  } else {
-    setTimeout(function () {
-      if (document.getElementById(listIDProp).style.height === heightSmall)
-        document.getElementById("ALL" + listIDProp).style.display = displayNone;
-    }, 2000);
+  switch (allDisplay) {
+    case String(displayBlock):
+      setTimeout(function () {
+        if (objectHeight === heightSmall)
+          document.getElementById("ALL" + listDisplayID).style.display =
+            displayNone;
+      }, 2000);
+      break;
+    default:
+      document.getElementById("ALL" + listDisplayID).style.display =
+        displayBlock;
   }
 
   // Activity General Information
-  if (
-    document.getElementById("AGI" + listIDProp).style.display !==
-    String(displayBlock)
-  ) {
-    document.getElementById("AGI" + listIDProp).style.display = displayBlock;
-  } else {
-    setTimeout(function () {
-      if (document.getElementById(listIDProp).style.height === heightSmall)
-        document.getElementById("AGI" + listIDProp).style.display = displayNone;
-    }, 2000);
+  switch (agiDisplay) {
+    case String(displayBlock):
+      setTimeout(function () {
+        if (objectHeight === heightSmall)
+          document.getElementById("AGI" + listDisplayID).style.display =
+            displayNone;
+      }, 2000);
+      break;
+    default:
+      document.getElementById("AGI" + listDisplayID).style.display =
+        displayBlock;
   }
 
   // Activity Global Position
-  if (
-    document.getElementById("AGP" + listIDProp).style.display !==
-    String(displayBlock)
-  ) {
-    document.getElementById("AGP" + listIDProp).style.display = displayBlock;
-  } else {
-    setTimeout(function () {
-      if (document.getElementById(listIDProp).style.height === heightSmall)
-        document.getElementById("AGP" + listIDProp).style.display = displayNone;
-    }, 2000);
+  switch (agpDisplay) {
+    case String(displayBlock):
+      setTimeout(function () {
+        if (objectHeight === heightSmall)
+          document.getElementById("AGP" + listDisplayID).style.display =
+            displayNone;
+      }, 2000);
+      break;
+    default:
+      document.getElementById("AGP" + listDisplayID).style.display =
+        displayBlock;
   }
 
   // Google Map
-  if (
-    document.getElementById("GM" + listIDProp).style.display !==
-    String(displayBlock)
-  ) {
-    document.getElementById("GM" + listIDProp).style.display = displayBlock;
-  } else {
-    setTimeout(function () {
-      if (document.getElementById(listIDProp).style.height === heightSmall)
-        document.getElementById("GM" + listIDProp).style.display = displayNone;
-    }, 2000);
+  switch (gmDisplay) {
+    case String(displayBlock):
+      setTimeout(function () {
+        if (objectHeight === heightSmall)
+          document.getElementById("GM" + listDisplayID).style.display =
+            displayNone;
+      }, 2000);
+      break;
+    default:
+      document.getElementById("GM" + listDisplayID).style.display =
+        displayBlock;
   }
 }
 
@@ -167,36 +190,50 @@ export default class AllActivities extends React.Component {
   // what the user is searching for
   handleFilterActivityList = () => {
     const filterInputValue = document.getElementById("filterInput").value;
-    const getLocalStorage = JSON.parse(
-      window.localStorage.getItem("activities")
-    );
+    const getLocalStorage = JSON.parse(localStorage.getItem("activities"));
     let searchResult = [];
 
     for (let i = 0; i < getLocalStorage.length; i++) {
       var filterThisInput = getLocalStorage[i].name.toLowerCase();
+      let userSearchInput = this.state.searchInput;
 
-      if (this.state.searchInput === "name") {
-        filterThisInput = getLocalStorage[i].name.toLowerCase();
-      } else if (this.state.searchInput === "type") {
-        filterThisInput = getLocalStorage[i].type.toLowerCase();
-      } else if (this.state.searchInput === "description") {
-        filterThisInput = getLocalStorage[i].description.toLowerCase();
-      } else if (this.state.searchInput === "city") {
-        filterThisInput = getLocalStorage[i].city.toLowerCase();
-      } else if (this.state.searchInput === "municipality") {
-        filterThisInput = getLocalStorage[i].municipality.toLowerCase();
-      } else if (this.state.searchInput === "county") {
-        filterThisInput = getLocalStorage[i].county.toLowerCase();
-      } else if (this.state.searchInput === "opening-hours") {
-        filterThisInput = getLocalStorage[i].open_hours.toLowerCase();
-      } else if (this.state.searchInput === "closing-hours") {
-        filterThisInput = getLocalStorage[i].closing_hours.toLowerCase();
-      } else if (this.state.searchInput === "country") {
-        filterThisInput = getLocalStorage[i].country.toLowerCase();
-      } else if (this.state.searchInput === "subregion") {
-        filterThisInput = getLocalStorage[i].subregion.toLowerCase();
-      } else if (this.state.searchInput === "region") {
-        filterThisInput = getLocalStorage[i].region.toLowerCase();
+      switch (userSearchInput) {
+        case "name":
+          filterThisInput = getLocalStorage[i].name.toLowerCase();
+          break;
+        case "type":
+          filterThisInput = getLocalStorage[i].type.toLowerCase();
+          break;
+        case "description":
+          filterThisInput = getLocalStorage[i].description.toLowerCase();
+          break;
+        case "city":
+          filterThisInput = getLocalStorage[i].city.toLowerCase();
+          break;
+        case "municipality":
+          filterThisInput = getLocalStorage[i].municipality.toLowerCase();
+          break;
+        case "county":
+          filterThisInput = getLocalStorage[i].county.toLowerCase();
+          break;
+        case "opening-hours":
+          filterThisInput = getLocalStorage[i].open_hours.toLowerCase();
+          break;
+        case "closing-hours":
+          filterThisInput = getLocalStorage[i].closing_hours.toLowerCase();
+          break;
+        case "country":
+          filterThisInput = getLocalStorage[i].country.toLowerCase();
+          break;
+        case "subregion":
+          filterThisInput = getLocalStorage[i].subregion.toLowerCase();
+          break;
+        case "region":
+          filterThisInput = getLocalStorage[i].region.toLowerCase();
+          break;
+
+        default:
+          filterThisInput = getLocalStorage[i].name.toLowerCase();
       }
 
       var filteredInput = filterThisInput.indexOf(
@@ -217,28 +254,29 @@ export default class AllActivities extends React.Component {
   // If the 2 conditions are not true. It will retrieve a new set of data from the database on the server, via a webAPI and insert that data into "this.state.activities" instead.
   componentDidMount() {
     if (
-      window.localStorage.getItem("activities") &&
-      new Date().getTime() <= window.localStorage.getItem("lsExpirationTime")
+      localStorage.getItem("activities") &&
+      new Date().getTime() <= localStorage.getItem("lsExpirationTime")
     ) {
-      const getLocalStorage = JSON.parse(
-        window.localStorage.getItem("activities")
-      );
+      const getLocalStorage = JSON.parse(localStorage.getItem("activities"));
       const activities = getLocalStorage;
       this.setState({ activities });
       console.log("LocalStorage activities have been found. Using those.");
     } else {
-      window.localStorage.removeItem("activities");
-      window.localStorage.removeItem("lsExpirationTime");
-      axios
-        .get(`https://sfpmedia.dk/db_api_oas/readActivities.php`)
-        .then((res) => {
-          window.localStorage.setItem("activities", JSON.stringify(res.data));
-          window.localStorage.setItem(
+      localStorage.removeItem("activities");
+      localStorage.removeItem("lsExpirationTime");
+
+      fetch("https://sfpmedia.dk/db_api_oas/readActivities.php")
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          localStorage.setItem("activities", JSON.stringify(data));
+          localStorage.setItem(
             "lsExpirationTime",
             JSON.stringify(new Date().getTime() + 1000 * 60 * 60 * 18)
           );
           const getLocalStorage = JSON.parse(
-            window.localStorage.getItem("activities")
+            localStorage.getItem("activities")
           );
           const activities = getLocalStorage;
           this.setState({ activities });
@@ -310,19 +348,20 @@ export default class AllActivities extends React.Component {
 
   // forceListUpdate() gives the user a way to clear the local storage, get the latest data from the server and then insert that into the local storage and "this.state.activities" state.
   forceListUpdate = () => {
-    window.localStorage.removeItem("activities");
-    window.localStorage.removeItem("lsExpirationTime");
-    axios
-      .get(`https://sfpmedia.dk/db_api_oas/readActivities.php`)
-      .then((res) => {
-        window.localStorage.setItem("activities", JSON.stringify(res.data));
-        window.localStorage.setItem(
+    localStorage.removeItem("activities");
+    localStorage.removeItem("lsExpirationTime");
+
+    fetch("https://sfpmedia.dk/db_api_oas/readActivities.php")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        localStorage.setItem("activities", JSON.stringify(data));
+        localStorage.setItem(
           "lsExpirationTime",
           JSON.stringify(new Date().getTime() + 1000 * 60 * 60 * 18)
         );
-        const getLocalStorage = JSON.parse(
-          window.localStorage.getItem("activities")
-        );
+        const getLocalStorage = JSON.parse(localStorage.getItem("activities"));
         const activities = getLocalStorage;
         this.setState({ activities });
         console.log("Forced update of localstorage data and react state.");
@@ -439,7 +478,11 @@ export default class AllActivities extends React.Component {
         </div>
 
         {this.state.activities.map((activity) => [
-          <div className="ActivityList" key={activity.id} id={activity.id}>
+          <div
+            className="ActivityList"
+            key={activity.id}
+            id={"AL" + activity.id}
+          >
             <h2>{activity.name}</h2>
             <span
               className="ExpandArrow"

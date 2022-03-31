@@ -75,6 +75,16 @@ h1 {
   grid-column-end: 3;
 }
 
+.activityListTop {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.activityListTop p {
+  margin: 0;
+}
+
 .ActivityIntroduction {
   grid-column-start: 1;
   grid-column-end: 2;
