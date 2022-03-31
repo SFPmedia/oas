@@ -1,6 +1,7 @@
 @import "./StyleVariables.scss";
 
-.body {
+body {
+  margin: 0;
   width: 100%;
   background-color: $backgroundBody;
 }
