@@ -3,6 +3,13 @@
 
 import "../componentStyles/ActivityList.scss";
 import React from "react";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "../componentStyles/ActivityListTheme";
+import Container from "@mui/material/Container";
+import { Button, Typography, TextField } from "@mui/material";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardContent from "@mui/material/CardContent";
 
 const displayBlock = "block";
 const displayNone = "none";
@@ -382,293 +389,324 @@ export default class AllActivities extends React.Component {
 
   render() {
     return (
-      <div className="ActivityListArea">
-        <button className="forceListUpdate" onClick={this.forceListUpdate}>
-          Force Latest Update
-        </button>
-        <h2 className="listTitle">All Activities</h2>
-        <div id="filterArea">
-          <div className="dropdownSL">
-            <button className="searchbtn">Search by</button>
-            <div className="dropdownContentSL">
-              <button
-                onClick={() => this.searchSelect("Name")}
-                style={{ backgroundColor: this.searchSelectColor("name") }}
-              >
-                Name
-              </button>
+      <ThemeProvider theme={theme}>
+        <Container maxWidth="md">
+          <Button variant="contained" onClick={this.forceListUpdate}>
+            Force Latest Update
+          </Button>
+          <Typography variant="h2" color="initial">
+            Activities Near You
+          </Typography>
 
-              <button
-                onClick={() => this.searchSelect("Type")}
-                style={{ backgroundColor: this.searchSelectColor("type") }}
-              >
-                Type
-              </button>
-              <button
-                onClick={() => this.searchSelect("Description")}
-                style={{
-                  backgroundColor: this.searchSelectColor("description"),
-                }}
-              >
-                Description
-              </button>
-              <button
-                onClick={() => this.searchSelect("City")}
-                style={{ backgroundColor: this.searchSelectColor("city") }}
-              >
-                City
-              </button>
-              <button
-                onClick={() => this.searchSelect("Municipality")}
-                style={{
-                  backgroundColor: this.searchSelectColor("municipality"),
-                }}
-              >
-                Municipality
-              </button>
-              <button
-                onClick={() => this.searchSelect("County")}
-                style={{ backgroundColor: this.searchSelectColor("county") }}
-              >
-                County
-              </button>
-              <button
-                onClick={() => this.searchSelect("Opening-Hours")}
-                style={{
-                  backgroundColor: this.searchSelectColor("opening-hours"),
-                }}
-              >
-                Opening-Hours
-              </button>
-              <button
-                onClick={() => this.searchSelect("Closing-Hours")}
-                style={{
-                  backgroundColor: this.searchSelectColor("closing-hours"),
-                }}
-              >
-                Closing-Hours
-              </button>
-              <button
-                onClick={() => this.searchSelect("Country")}
-                style={{ backgroundColor: this.searchSelectColor("country") }}
-              >
-                Country
-              </button>
-              <button
-                onClick={() => this.searchSelect("Subregion")}
-                style={{ backgroundColor: this.searchSelectColor("subregion") }}
-              >
-                Subregion
-              </button>
-              <button
-                onClick={() => this.searchSelect("Region")}
-                style={{ backgroundColor: this.searchSelectColor("region") }}
-              >
-                Region
-              </button>
+          <div id="filterArea">
+            <div className="dropdownSL">
+              <button className="searchbtn">Search by</button>
+              <div className="dropdownContentSL">
+                <button
+                  onClick={() => this.searchSelect("Name")}
+                  style={{
+                    backgroundColor: this.searchSelectColor("name"),
+                  }}
+                >
+                  Name
+                </button>
+
+                <button
+                  onClick={() => this.searchSelect("Type")}
+                  style={{
+                    backgroundColor: this.searchSelectColor("type"),
+                  }}
+                >
+                  Type
+                </button>
+                <button
+                  onClick={() => this.searchSelect("Description")}
+                  style={{
+                    backgroundColor: this.searchSelectColor("description"),
+                  }}
+                >
+                  Description
+                </button>
+                <button
+                  onClick={() => this.searchSelect("City")}
+                  style={{
+                    backgroundColor: this.searchSelectColor("city"),
+                  }}
+                >
+                  City
+                </button>
+                <button
+                  onClick={() => this.searchSelect("Municipality")}
+                  style={{
+                    backgroundColor: this.searchSelectColor("municipality"),
+                  }}
+                >
+                  Municipality
+                </button>
+                <button
+                  onClick={() => this.searchSelect("County")}
+                  style={{
+                    backgroundColor: this.searchSelectColor("county"),
+                  }}
+                >
+                  County
+                </button>
+                <button
+                  onClick={() => this.searchSelect("Opening-Hours")}
+                  style={{
+                    backgroundColor: this.searchSelectColor("opening-hours"),
+                  }}
+                >
+                  Opening-Hours
+                </button>
+                <button
+                  onClick={() => this.searchSelect("Closing-Hours")}
+                  style={{
+                    backgroundColor: this.searchSelectColor("closing-hours"),
+                  }}
+                >
+                  Closing-Hours
+                </button>
+                <button
+                  onClick={() => this.searchSelect("Country")}
+                  style={{
+                    backgroundColor: this.searchSelectColor("country"),
+                  }}
+                >
+                  Country
+                </button>
+                <button
+                  onClick={() => this.searchSelect("Subregion")}
+                  style={{
+                    backgroundColor: this.searchSelectColor("subregion"),
+                  }}
+                >
+                  Subregion
+                </button>
+                <button
+                  onClick={() => this.searchSelect("Region")}
+                  style={{
+                    backgroundColor: this.searchSelectColor("region"),
+                  }}
+                >
+                  Region
+                </button>
+              </div>
             </div>
+
+            <TextField
+              id="filterInput"
+              label={this.state.userSearch}
+              type="search"
+              variant="standard"
+            />
           </div>
 
-          <input
-            id="filterInput"
-            type="text"
-            placeholder={this.state.userSearch}
-            onChange={this.handleFilterActivityList}
-          />
-        </div>
+          {this.state.activities.map((activity) => [
+            <Card key={activity.id} id={"AL" + activity.id} gutterBottom>
+              <CardHeader title={activity.name} />
+              <span
+                className="ExpandArrow"
+                onClick={() => {
+                  expandList(activity.id);
+                  expandListOpacity(activity.id);
+                  expandListDisplay(activity.id);
+                }}
+              >
+                &#8691;
+              </span>
+              <CardContent>
+                <div className="ActivityIntroduction" id={"AI" + activity.id}>
+                  <Typography variant="h4" color="initial" gutterBottom>
+                    General Info
+                  </Typography>
+                  {activity.type ? (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      Type: <br /> {activity.type}
+                    </Typography>
+                  ) : (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      {" "}
+                      Type: <br />
+                      Not available
+                    </Typography>
+                  )}
+                  {activity.description ? (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      Description: <br /> {activity.description}
+                    </Typography>
+                  ) : (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      Description: <br />
+                      Not available
+                    </Typography>
+                  )}
+                  {activity.distance ? (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      Distance: <br /> {activity.distance}
+                    </Typography>
+                  ) : (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      Distance: <br />
+                      Not available
+                    </Typography>
+                  )}
 
-        {this.state.activities.map((activity) => [
-          <div
-            className="ActivityList"
-            key={activity.id}
-            id={"AL" + activity.id}
-          >
-            <h2>{activity.name}</h2>
-            <span
-              className="ExpandArrow"
-              onClick={() => {
-                expandList(activity.id);
-                expandListOpacity(activity.id);
-                expandListDisplay(activity.id);
-              }}
-            >
-              &#8691;
-            </span>
-            <div className="ActivityIntroduction" id={"AI" + activity.id}>
-              {activity.type ? (
-                <p>
-                  Type: <br /> {activity.type}
-                </p>
-              ) : (
-                <p>
-                  Type: <br />
-                  Not available
-                </p>
-              )}
-              {activity.description ? (
-                <p>
-                  Description: <br /> {activity.description}
-                </p>
-              ) : (
-                <p>
-                  Description: <br />
-                  Not available
-                </p>
-              )}
-              {activity.distance ? (
-                <p>
-                  Distance: <br /> {activity.distance}
-                </p>
-              ) : (
-                <p>
-                  Distance: <br />
-                  Not available
-                </p>
-              )}
-
-              {activity.price ? (
-                <p>
-                  Price: <br /> {activity.price},-
-                </p>
-              ) : (
-                <p>
-                  Price: <br />
-                  Not available
-                </p>
-              )}
-            </div>
-            <div className="ActivityLocalLocation" id={"ALL" + activity.id}>
-              <h3>National Scale</h3>
-              {activity.city ? (
-                <p>
-                  City: <br /> {activity.city}
-                </p>
-              ) : (
-                <p>
-                  City: <br />
-                  Not available
-                </p>
-              )}
-              {activity.municipality ? (
-                <p>
-                  Municipality: <br /> {activity.municipality}
-                </p>
-              ) : (
-                <p>
-                  Municipality: <br />
-                  Not available
-                </p>
-              )}
-              {activity.county ? (
-                <p>
-                  County: <br /> {activity.county}
-                </p>
-              ) : (
-                <p>
-                  County: <br />
-                  Not available
-                </p>
-              )}
-            </div>
-            <div
-              className="ActivityGeneralInformation"
-              id={"AGI" + activity.id}
-            >
-              {activity.open_hours ? (
-                <p>
-                  Opening Hours: <br /> {activity.open_hours}
-                </p>
-              ) : (
-                <p>
-                  Opening Hours: <br />
-                  Not available
-                </p>
-              )}
-              {activity.closing_hours ? (
-                <p>
-                  Closing Hours: <br /> {activity.closing_hours}
-                </p>
-              ) : (
-                <p>
-                  Closing Hours: <br />
-                  Not available
-                </p>
-              )}
-              {activity.website_link ? (
-                <p>
-                  Website: <br />
-                  <a
-                    href={activity.website_link}
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    {activity.website_link.substring(0, 36)}
-                  </a>
-                </p>
-              ) : (
-                <p>
-                  Website: <br />
-                  Not available
-                </p>
-              )}
-              {activity.phone ? (
-                <p>
-                  Phone: <br /> {activity.phone}
-                </p>
-              ) : (
-                <p key={activity.id}>
-                  Phone: <br />
-                  Not available
-                </p>
-              )}
-            </div>
-            <div className="ActivityGlobalPosition" id={"AGP" + activity.id}>
-              <h3>Global Scale</h3>
-              {activity.country ? (
-                <p>
-                  Country: <br /> {activity.country}
-                </p>
-              ) : (
-                <p>
-                  Country: <br />
-                  Not available
-                </p>
-              )}
-              {activity.subregion ? (
-                <p>
-                  Subregion: <br /> {activity.subregion}
-                </p>
-              ) : (
-                <p>
-                  Subregion: <br />
-                  Not available
-                </p>
-              )}
-              {activity.region ? (
-                <p>
-                  Region: <br /> {activity.region}
-                </p>
-              ) : (
-                <p key={activity.id}>
-                  Region: <br />
-                  Not available
-                </p>
-              )}
-            </div>
-            <iframe
-              title={"titleNumber" + activity.id}
-              key={activity.id}
-              className="GoogleMap"
-              id={"GM" + activity.id}
-              src={activity.geolocation}
-              width="600"
-              height="450"
-              allowFullScreen=""
-              loading="lazy"
-            ></iframe>
-          </div>,
-        ])}
-      </div>
+                  {activity.price ? (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      Price: <br /> {activity.price},-
+                    </Typography>
+                  ) : (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      Price: <br />
+                      Not available
+                    </Typography>
+                  )}
+                </div>
+                <div className="ActivityLocalLocation" id={"ALL" + activity.id}>
+                  <Typography variant="h4" color="initial" gutterBottom>
+                    National Scale
+                  </Typography>
+                  {activity.city ? (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      City: <br /> {activity.city}
+                    </Typography>
+                  ) : (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      City: <br />
+                      Not available
+                    </Typography>
+                  )}
+                  {activity.municipality ? (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      Municipality: <br /> {activity.municipality}
+                    </Typography>
+                  ) : (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      Municipality: <br />
+                      Not available
+                    </Typography>
+                  )}
+                  {activity.county ? (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      County: <br /> {activity.county}
+                    </Typography>
+                  ) : (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      County: <br />
+                      Not available
+                    </Typography>
+                  )}
+                </div>
+                <div
+                  className="ActivityGeneralInformation"
+                  id={"AGI" + activity.id}
+                >
+                  <Typography variant="h4" color="initial" gutterBottom>
+                    Practical Info
+                  </Typography>
+                  {activity.open_hours ? (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      Opening Hours: <br /> {activity.open_hours}
+                    </Typography>
+                  ) : (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      Opening Hours: <br />
+                      Not available
+                    </Typography>
+                  )}
+                  {activity.closing_hours ? (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      Closing Hours: <br /> {activity.closing_hours}
+                    </Typography>
+                  ) : (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      Closing Hours: <br />
+                      Not available
+                    </Typography>
+                  )}
+                  {activity.website_link ? (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      Website: <br />
+                      <a
+                        href={activity.website_link}
+                        rel="noreferrer"
+                        target="_blank"
+                      >
+                        {activity.website_link.substring(0, 36)}
+                      </a>
+                    </Typography>
+                  ) : (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      Website: <br />
+                      Not available
+                    </Typography>
+                  )}
+                  {activity.phone ? (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      Phone: <br /> {activity.phone}
+                    </Typography>
+                  ) : (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      Phone: <br />
+                      Not available
+                    </Typography>
+                  )}
+                </div>
+                <div
+                  className="ActivityGlobalPosition"
+                  id={"AGP" + activity.id}
+                >
+                  <Typography variant="h4" color="initial" gutterBottom>
+                    Global Scale
+                  </Typography>
+                  {activity.country ? (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      Country: <br /> {activity.country}
+                    </Typography>
+                  ) : (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      Country: <br />
+                      Not available
+                    </Typography>
+                  )}
+                  {activity.subregion ? (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      Subregion: <br /> {activity.subregion}
+                    </Typography>
+                  ) : (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      Subregion: <br />
+                      Not available
+                    </Typography>
+                  )}
+                  {activity.region ? (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      Region: <br /> {activity.region}
+                    </Typography>
+                  ) : (
+                    <Typography variant="body2" color="initial" gutterBottom>
+                      Region: <br />
+                      Not available
+                    </Typography>
+                  )}
+                </div>
+                <iframe
+                  title={"titleNumber" + activity.id}
+                  key={activity.id}
+                  className="GoogleMap"
+                  id={"GM" + activity.id}
+                  src={activity.geolocation}
+                  width="600"
+                  height="450"
+                  allowFullScreen=""
+                  loading="lazy"
+                ></iframe>
+              </CardContent>
+            </Card>,
+          ])}
+        </Container>
+      </ThemeProvider>
     );
   }
 }
