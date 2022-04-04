@@ -1,19 +1,122 @@
 import "../componentStyles/Footer.scss";
 import React from "react";
+import { Typography, Grid } from "@mui/material";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "../componentStyles/AboutPageStyle";
+import { lightGreen } from "@mui/material/colors";
 
 export default function Footer() {
   return (
-    <div className="aboutPage">
-      <h2>About this page</h2>
-      <p>
-        On this page, you will find a list of outdoor activities, with some of
-        the most appropriate information available. <br />
-        Google Maps is not always the best at distinguishing between outdoor
-        activities and just places where you can do physical activities in
-        general. <br />
-        So I took the liberty of sorting through the list myself, in order to
-        give a clear and accessible idea of the options near you.
-      </p>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Grid container rowSpacing={20} justifyContent="center">
+        <Grid
+          item
+          xs={11}
+          md={11}
+          lg={11}
+          xl={11}
+          sx={{ paddingTop: "0px !important" }}
+        >
+          <Typography variant="h1" color="initial" align="center" gutterBottom>
+            About this page
+          </Typography>
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          md={10}
+          lg={5}
+          xl={5}
+          sx={{ bgcolor: lightGreen[100], paddingTop: "0px !important" }}
+          container
+          justifyContent="center"
+        >
+          <Typography
+            variant="h2"
+            color="initial"
+            textAlign="center"
+            gutterBottom
+          >
+            Purpose
+          </Typography>
+          <Typography variant="body1" color="initial" textAlign="center">
+            This website will help you search for outdoor activities far away
+            from you, as well as near you. <br />
+            It provides you with the most basic and useful information, while
+            giving you the option to go to possible websites or make use of the
+            attached Google Maps.
+          </Typography>
+        </Grid>
+
+        <Grid
+          item
+          xs={12}
+          md={10}
+          lg={5}
+          xl={5}
+          sx={{ bgcolor: lightGreen[200], paddingTop: "0 !important" }}
+        >
+          <Typography
+            variant="h2"
+            color="initial"
+            textAlign="center"
+            gutterBottom
+          >
+            The Future
+          </Typography>
+          <Typography variant="body1" color="initial" textAlign="center">
+            As time goes, more entries will be implemented on the list,
+            expanding to other countries. <br />
+            New features might be developed, if good ideas are shared with me.
+          </Typography>
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          md={10}
+          lg={5}
+          xl={5}
+          sx={{ bgcolor: lightGreen[300], paddingTop: "0 !important" }}
+        >
+          <Typography
+            variant="h2"
+            color="initial"
+            textAlign="center"
+            gutterBottom
+          >
+            Tech Stack
+          </Typography>
+          <Typography variant="body1" color="initial" textAlign="center">
+            HTML & JavaScript
+            <br />
+            CSS, SCSS & Material UI <br />
+            MySQL & PHP
+          </Typography>
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          md={10}
+          lg={5}
+          xl={5}
+          sx={{ bgcolor: lightGreen[500], paddingTop: "0 !important" }}
+        >
+          <Typography
+            variant="h2"
+            color="initial"
+            textAlign="center"
+            gutterBottom
+          >
+            Contact
+          </Typography>
+          <Typography variant="body1" color="initial" textAlign="center">
+            If you have any questions or ideas for the development of this
+            website, feel free to send me and e-mail and tell me about it.
+            <br />
+            E-mail: sfpauck@gmail.com
+          </Typography>
+        </Grid>
+      </Grid>
+    </ThemeProvider>
   );
 }

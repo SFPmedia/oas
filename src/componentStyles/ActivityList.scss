@@ -40,7 +40,8 @@ h1 {
 #filterArea {
   display: flex;
   justify-content: center;
-  margin-bottom: 10px;
+  margin-top: 25px;
+  margin-bottom: 50px;
   height: 25px;
 }
 
@@ -79,10 +80,6 @@ h1 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-}
-
-.activityListTop p {
-  margin: 0;
 }
 
 .ActivityIntroduction {
@@ -146,16 +143,18 @@ h1 {
   background-color: #04aa6d;
   color: white;
   border: none;
-  height: 25px;
+  height: 30px;
 }
 
 .dropdownSL {
   position: relative;
   display: inline-block;
+  margin-top: 15px;
+  margin-right: 0.2em;
 }
 
 .dropdownContentSL {
-  display: none;
+  display: block;
   position: absolute;
   background-color: $backgroundFilterList;
   min-width: 150px;
@@ -164,28 +163,6 @@ h1 {
   border-radius: 5px;
 }
 
-.dropdownContentSL button {
-  color: black;
-  padding: 0.5em 1em;
-  text-decoration: none;
-  display: block;
-  margin-bottom: 2px;
-  margin-left: 0.5em;
-  border-radius: 5px;
-}
-
 .dropdownContentSL button:last-of-type {
   margin-bottom: 0px;
-}
-
-.dropdownContentSL button:hover {
-  background-color: #ddd;
-}
-
-.dropdownSL:hover .dropdownContentSL {
-  display: block;
-}
-
-.dropdownSL:hover .dropbtn {
-  background-color: #3e8e41;
 }

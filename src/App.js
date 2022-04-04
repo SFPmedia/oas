@@ -7,7 +7,9 @@ import AllActivities from "./frontendComponents/AllActivities";
 import AllActivitiesNU from "./frontendComponents/AllActivitiesNU";
 import FourOhFour from "./frontendComponents/FourOhFour";
 import Typography from "@mui/material/Typography";
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, Grid } from "@mui/material";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./componentStyles/ActivityListTheme";
 
 function App() {
   return (
@@ -21,14 +23,19 @@ function App() {
             path="/"
             element={
               <>
-                {" "}
-                <Typography variant="h1" color="initial">
-                  Outdoor Activities
-                </Typography>
-                <div className="listArea">
-                  <AllActivities />
-                  <AllActivitiesNU />
-                </div>
+                <ThemeProvider theme={theme}>
+                  <Typography variant="h1" color="initial">
+                    Outdoor Activities
+                  </Typography>
+                  <Grid container spacing={2} justifyContent="center">
+                    <Grid item xs={12} md={10} lg={6} xl={5}>
+                      <AllActivities />
+                    </Grid>
+                    <Grid item xs={12} md={10} lg={6} xl={5}>
+                      <AllActivitiesNU />
+                    </Grid>
+                  </Grid>
+                </ThemeProvider>
               </>
             }
           />

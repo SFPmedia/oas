@@ -170,22 +170,26 @@ export default class AllActivitiesNU extends React.Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <Container maxWidth="md">
+        <Container>
           <div className="activityListTop">
             <Button variant="contained" onClick={this.forceListUpdateNU}>
               Force Latest Update
             </Button>
-            <Typography variant="body1" color="initial">
+            <Typography
+              variant="body1"
+              color="initial"
+              sx={{ marginTop: "1em" }}
+            >
               User accuracy: {this.state.positionAccuracy}m
             </Typography>
           </div>
-          <Typography variant="h2" color="initial">
+          <Typography variant="h2" color="initial" align="center">
             Activities Near You
           </Typography>
           <div id="filterArea">
             <TextField
               id="filterInputNU"
-              label={"Search in Kilometer radius around you"}
+              label={"Search near you"}
               type="number"
               variant="standard"
               onChange={this.insertNewListNU}

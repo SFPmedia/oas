@@ -15,6 +15,7 @@ export default class AllActivities extends React.Component {
       activities: [],
       userSearch: " Name",
       searchInput: "name",
+      searchSelectVisibleStatus: false,
     };
   }
 
@@ -119,6 +120,14 @@ export default class AllActivities extends React.Component {
     }
   }
 
+  searchSelectVisible = () => {
+    if (this.state.searchSelectVisibleStatus === false) {
+      return this.setState({ searchSelectVisibleStatus: true });
+    } else {
+      return this.setState({ searchSelectVisibleStatus: false });
+    }
+  };
+
   // The searchSelect() function allows the user to choose which type of information the filter should search by.
   searchSelect(Search) {
     var text;
@@ -176,6 +185,7 @@ export default class AllActivities extends React.Component {
     }
     this.setState({ userSearch: text });
     this.setState({ searchInput: userSearchType });
+    this.setState({ searchSelectVisibleStatus: false });
   }
 
   // forceListUpdate() gives the user a way to clear the local storage, get the latest data from the server and then insert that into the local storage and "this.state.activities" state.
@@ -215,108 +225,132 @@ export default class AllActivities extends React.Component {
   render() {
     return (
       <ThemeProvider theme={theme}>
-        <Container maxWidth="md">
+        <Container>
           <Button variant="contained" onClick={this.forceListUpdate}>
             Force Latest Update
           </Button>
-          <Typography variant="h2" color="initial">
+          <Typography variant="h2" color="initial" align="center">
             All Activities
           </Typography>
 
           <div id="filterArea">
             <div className="dropdownSL">
-              <button className="searchbtn">Search by</button>
-              <div className="dropdownContentSL">
-                <button
+              <Button
+                variant="contained"
+                sx={{ marginTop: "0" }}
+                onClick={this.searchSelectVisible}
+              >
+                Search by
+              </Button>
+              <Container
+                className="dropdownContentSL"
+                sx={
+                  this.state.searchSelectVisibleStatus
+                    ? { display: "block" }
+                    : { display: "none" }
+                }
+              >
+                <Button
+                  variant="contained"
                   onClick={() => this.searchSelect("Name")}
                   style={{
                     backgroundColor: this.searchSelectColor("name"),
                   }}
                 >
                   Name
-                </button>
+                </Button>
 
-                <button
+                <Button
+                  variant="contained"
                   onClick={() => this.searchSelect("Type")}
                   style={{
                     backgroundColor: this.searchSelectColor("type"),
                   }}
                 >
                   Type
-                </button>
-                <button
+                </Button>
+                <Button
+                  variant="contained"
                   onClick={() => this.searchSelect("Description")}
                   style={{
                     backgroundColor: this.searchSelectColor("description"),
                   }}
                 >
                   Description
-                </button>
-                <button
+                </Button>
+                <Button
+                  variant="contained"
                   onClick={() => this.searchSelect("City")}
                   style={{
                     backgroundColor: this.searchSelectColor("city"),
                   }}
                 >
                   City
-                </button>
-                <button
+                </Button>
+                <Button
+                  variant="contained"
                   onClick={() => this.searchSelect("Municipality")}
                   style={{
                     backgroundColor: this.searchSelectColor("municipality"),
                   }}
                 >
                   Municipality
-                </button>
-                <button
+                </Button>
+                <Button
+                  variant="contained"
                   onClick={() => this.searchSelect("County")}
                   style={{
                     backgroundColor: this.searchSelectColor("county"),
                   }}
                 >
                   County
-                </button>
-                <button
+                </Button>
+                <Button
+                  variant="contained"
                   onClick={() => this.searchSelect("Opening-Hours")}
                   style={{
                     backgroundColor: this.searchSelectColor("opening-hours"),
                   }}
                 >
                   Opening-Hours
-                </button>
-                <button
+                </Button>
+                <Button
+                  variant="contained"
                   onClick={() => this.searchSelect("Closing-Hours")}
                   style={{
                     backgroundColor: this.searchSelectColor("closing-hours"),
                   }}
                 >
                   Closing-Hours
-                </button>
-                <button
+                </Button>
+                <Button
+                  variant="contained"
                   onClick={() => this.searchSelect("Country")}
                   style={{
                     backgroundColor: this.searchSelectColor("country"),
                   }}
                 >
                   Country
-                </button>
-                <button
+                </Button>
+                <Button
+                  variant="contained"
                   onClick={() => this.searchSelect("Subregion")}
                   style={{
                     backgroundColor: this.searchSelectColor("subregion"),
                   }}
                 >
                   Subregion
-                </button>
-                <button
+                </Button>
+                <Button
+                  variant="contained"
                   onClick={() => this.searchSelect("Region")}
                   style={{
                     backgroundColor: this.searchSelectColor("region"),
                   }}
                 >
                   Region
-                </button>
-              </div>
+                </Button>
+              </Container>
             </div>
 
             <TextField
