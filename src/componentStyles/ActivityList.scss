@@ -88,36 +88,36 @@ h1 {
 .ActivityIntroduction {
   grid-column-start: 1;
   grid-column-end: 2;
-  opacity: 0;
+  opacity: 100;
   transition: opacity 2s ease;
-  display: none;
+  display: block;
   height: 300px;
 }
 
 .ActivityLocalLocation {
   grid-column-start: 2;
   grid-column-end: 3;
-  opacity: 0;
+  opacity: 100;
   transition: opacity 2s ease;
-  display: none;
+  display: block;
   height: 300px;
 }
 
 .ActivityGlobalPosition {
   grid-column-start: 2;
   grid-column-end: 3;
-  opacity: 0;
+  opacity: 100;
   transition: opacity 2s ease;
-  display: none;
+  display: block;
   height: 260px;
 }
 
 .ActivityGeneralInformation {
   grid-column-start: 1;
   grid-column-end: 2;
-  opacity: 0;
+  opacity: 100;
   transition: opacity 2s ease;
-  display: none;
+  display: block;
   height: 260px;
 }
 
@@ -126,9 +126,9 @@ h1 {
   grid-column-end: 3;
   margin-left: auto;
   margin-right: auto;
-  opacity: 0;
+  opacity: 100;
   transition: opacity 2s ease;
-  display: none;
+  display: block;
 }
 
 .ExpandArrow {

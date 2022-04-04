@@ -5,183 +5,8 @@ import "../componentStyles/ActivityList.scss";
 import React from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../componentStyles/ActivityListTheme";
-import Container from "@mui/material/Container";
-import { Button, Typography, TextField } from "@mui/material";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
-import CardContent from "@mui/material/CardContent";
-
-const displayBlock = "block";
-const displayNone = "none";
-const heightAuto = "1086px";
-const heightSmall = "75px";
-let setHeight = "1086px";
-
-// expandList() is used for expanding and detracting the individual items on the activity list
-function expandList(listExpandID) {
-  const listExpandHeight = document.getElementById("AL" + listExpandID).style
-    .height;
-
-  switch (listExpandHeight) {
-    case heightAuto:
-      setHeight = heightSmall;
-      break;
-    default:
-      setHeight = heightAuto;
-  }
-  document.getElementById("AL" + listExpandID).style.height = setHeight;
-}
-
-// expandListOpacity() gives an animated opacity effect on the content of the items, either on or off, whenever the expandList() function is activated
-function expandListOpacity(listOpacityID) {
-  const opacityFull = 1;
-  const opacityNone = 0;
-  const aiOpacity = document.getElementById("AI" + listOpacityID).style.opacity;
-  const allOpacity = document.getElementById("ALL" + listOpacityID).style
-    .opacity;
-  const agiOpacity = document.getElementById("AGI" + listOpacityID).style
-    .opacity;
-  const agpOpacity = document.getElementById("AGP" + listOpacityID).style
-    .opacity;
-  const gmOpacity = document.getElementById("GM" + listOpacityID).style.opacity;
-
-  // Activity Introduction
-  switch (aiOpacity) {
-    case String(opacityFull):
-      document.getElementById("AI" + listOpacityID).style.opacity = opacityNone;
-      break;
-    default:
-      document.getElementById("AI" + listOpacityID).style.opacity = opacityFull;
-  }
-
-  // Activity Local Location
-  switch (allOpacity) {
-    case String(opacityFull):
-      document.getElementById("ALL" + listOpacityID).style.opacity =
-        opacityNone;
-      break;
-    default:
-      document.getElementById("ALL" + listOpacityID).style.opacity =
-        opacityFull;
-  }
-
-  // Activity General Information
-  switch (agiOpacity) {
-    case String(opacityFull):
-      document.getElementById("AGI" + listOpacityID).style.opacity =
-        opacityNone;
-      break;
-    default:
-      document.getElementById("AGI" + listOpacityID).style.opacity =
-        opacityFull;
-  }
-
-  // Activity Global Position
-  switch (agpOpacity) {
-    case String(opacityFull):
-      document.getElementById("AGP" + listOpacityID).style.opacity =
-        opacityNone;
-      break;
-    default:
-      document.getElementById("AGP" + listOpacityID).style.opacity =
-        opacityFull;
-  }
-
-  // Google Map
-  switch (gmOpacity) {
-    case String(opacityFull):
-      document.getElementById("GM" + listOpacityID).style.opacity = opacityNone;
-      break;
-    default:
-      document.getElementById("GM" + listOpacityID).style.opacity = opacityFull;
-  }
-}
-
-// expandListDisplay() removes the content of the list items, to make sure that the page as a whole will not have a scroll bar going on forever
-// with the majority being blank space.
-// It is activated after a couple of seconds when a list detracts and immedially when it expands.
-function expandListDisplay(listDisplayID) {
-  const aiDisplay = document.getElementById("AI" + listDisplayID).style.display;
-  const allDisplay = document.getElementById("ALL" + listDisplayID).style
-    .display;
-  const agiDisplay = document.getElementById("AGI" + listDisplayID).style
-    .display;
-  const agpDisplay = document.getElementById("AGP" + listDisplayID).style
-    .display;
-  const gmDisplay = document.getElementById("GM" + listDisplayID).style.display;
-  const objectHeight = document.getElementById("AL" + listDisplayID).style
-    .height;
-
-  // Activity Introduction
-  switch (aiDisplay) {
-    case String(displayBlock):
-      setTimeout(function () {
-        if (objectHeight === heightSmall)
-          document.getElementById("AI" + listDisplayID).style.display =
-            displayNone;
-      }, 2000);
-      break;
-    default:
-      document.getElementById("AI" + listDisplayID).style.display =
-        displayBlock;
-  }
-
-  // Activity Local Location
-  switch (allDisplay) {
-    case String(displayBlock):
-      setTimeout(function () {
-        if (objectHeight === heightSmall)
-          document.getElementById("ALL" + listDisplayID).style.display =
-            displayNone;
-      }, 2000);
-      break;
-    default:
-      document.getElementById("ALL" + listDisplayID).style.display =
-        displayBlock;
-  }
-
-  // Activity General Information
-  switch (agiDisplay) {
-    case String(displayBlock):
-      setTimeout(function () {
-        if (objectHeight === heightSmall)
-          document.getElementById("AGI" + listDisplayID).style.display =
-            displayNone;
-      }, 2000);
-      break;
-    default:
-      document.getElementById("AGI" + listDisplayID).style.display =
-        displayBlock;
-  }
-
-  // Activity Global Position
-  switch (agpDisplay) {
-    case String(displayBlock):
-      setTimeout(function () {
-        if (objectHeight === heightSmall)
-          document.getElementById("AGP" + listDisplayID).style.display =
-            displayNone;
-      }, 2000);
-      break;
-    default:
-      document.getElementById("AGP" + listDisplayID).style.display =
-        displayBlock;
-  }
-
-  // Google Map
-  switch (gmDisplay) {
-    case String(displayBlock):
-      setTimeout(function () {
-        if (objectHeight === heightSmall)
-          document.getElementById("GM" + listDisplayID).style.display =
-            displayNone;
-      }, 2000);
-      break;
-    default:
-      document.getElementById("GM" + listDisplayID).style.display =
-        displayBlock;
-  }
-}
+import { Container, Button, Typography, TextField } from "@mui/material";
+import SingularActivity from "./SingularActivity";
 
 export default class AllActivities extends React.Component {
   constructor(props) {
@@ -395,7 +220,7 @@ export default class AllActivities extends React.Component {
             Force Latest Update
           </Button>
           <Typography variant="h2" color="initial">
-            Activities Near You
+            All Activities
           </Typography>
 
           <div id="filterArea">
@@ -499,211 +324,31 @@ export default class AllActivities extends React.Component {
               label={this.state.userSearch}
               type="search"
               variant="standard"
+              onChange={this.handleFilterActivityList}
             />
           </div>
 
           {this.state.activities.map((activity) => [
-            <Card key={activity.id} id={"AL" + activity.id} gutterBottom>
-              <CardHeader title={activity.name} />
-              <span
-                className="ExpandArrow"
-                onClick={() => {
-                  expandList(activity.id);
-                  expandListOpacity(activity.id);
-                  expandListDisplay(activity.id);
-                }}
-              >
-                &#8691;
-              </span>
-              <CardContent>
-                <div className="ActivityIntroduction" id={"AI" + activity.id}>
-                  <Typography variant="h4" color="initial" gutterBottom>
-                    General Info
-                  </Typography>
-                  {activity.type ? (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      Type: <br /> {activity.type}
-                    </Typography>
-                  ) : (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      {" "}
-                      Type: <br />
-                      Not available
-                    </Typography>
-                  )}
-                  {activity.description ? (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      Description: <br /> {activity.description}
-                    </Typography>
-                  ) : (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      Description: <br />
-                      Not available
-                    </Typography>
-                  )}
-                  {activity.distance ? (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      Distance: <br /> {activity.distance}
-                    </Typography>
-                  ) : (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      Distance: <br />
-                      Not available
-                    </Typography>
-                  )}
-
-                  {activity.price ? (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      Price: <br /> {activity.price},-
-                    </Typography>
-                  ) : (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      Price: <br />
-                      Not available
-                    </Typography>
-                  )}
-                </div>
-                <div className="ActivityLocalLocation" id={"ALL" + activity.id}>
-                  <Typography variant="h4" color="initial" gutterBottom>
-                    National Scale
-                  </Typography>
-                  {activity.city ? (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      City: <br /> {activity.city}
-                    </Typography>
-                  ) : (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      City: <br />
-                      Not available
-                    </Typography>
-                  )}
-                  {activity.municipality ? (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      Municipality: <br /> {activity.municipality}
-                    </Typography>
-                  ) : (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      Municipality: <br />
-                      Not available
-                    </Typography>
-                  )}
-                  {activity.county ? (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      County: <br /> {activity.county}
-                    </Typography>
-                  ) : (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      County: <br />
-                      Not available
-                    </Typography>
-                  )}
-                </div>
-                <div
-                  className="ActivityGeneralInformation"
-                  id={"AGI" + activity.id}
-                >
-                  <Typography variant="h4" color="initial" gutterBottom>
-                    Practical Info
-                  </Typography>
-                  {activity.open_hours ? (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      Opening Hours: <br /> {activity.open_hours}
-                    </Typography>
-                  ) : (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      Opening Hours: <br />
-                      Not available
-                    </Typography>
-                  )}
-                  {activity.closing_hours ? (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      Closing Hours: <br /> {activity.closing_hours}
-                    </Typography>
-                  ) : (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      Closing Hours: <br />
-                      Not available
-                    </Typography>
-                  )}
-                  {activity.website_link ? (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      Website: <br />
-                      <a
-                        href={activity.website_link}
-                        rel="noreferrer"
-                        target="_blank"
-                      >
-                        {activity.website_link.substring(0, 36)}
-                      </a>
-                    </Typography>
-                  ) : (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      Website: <br />
-                      Not available
-                    </Typography>
-                  )}
-                  {activity.phone ? (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      Phone: <br /> {activity.phone}
-                    </Typography>
-                  ) : (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      Phone: <br />
-                      Not available
-                    </Typography>
-                  )}
-                </div>
-                <div
-                  className="ActivityGlobalPosition"
-                  id={"AGP" + activity.id}
-                >
-                  <Typography variant="h4" color="initial" gutterBottom>
-                    Global Scale
-                  </Typography>
-                  {activity.country ? (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      Country: <br /> {activity.country}
-                    </Typography>
-                  ) : (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      Country: <br />
-                      Not available
-                    </Typography>
-                  )}
-                  {activity.subregion ? (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      Subregion: <br /> {activity.subregion}
-                    </Typography>
-                  ) : (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      Subregion: <br />
-                      Not available
-                    </Typography>
-                  )}
-                  {activity.region ? (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      Region: <br /> {activity.region}
-                    </Typography>
-                  ) : (
-                    <Typography variant="body2" color="initial" gutterBottom>
-                      Region: <br />
-                      Not available
-                    </Typography>
-                  )}
-                </div>
-                <iframe
-                  title={"titleNumber" + activity.id}
-                  key={activity.id}
-                  className="GoogleMap"
-                  id={"GM" + activity.id}
-                  src={activity.geolocation}
-                  width="600"
-                  height="450"
-                  allowFullScreen=""
-                  loading="lazy"
-                ></iframe>
-              </CardContent>
-            </Card>,
+            <SingularActivity
+              key={activity.id}
+              id={activity.id}
+              name={activity.name}
+              type={activity.type}
+              description={activity.description}
+              distance={activity.distance}
+              price={activity.price}
+              city={activity.city}
+              municipality={activity.municipality}
+              county={activity.county}
+              open_hours={activity.open_hours}
+              closing_hours={activity.closing_hours}
+              website_link={activity.website_link}
+              phone={activity.phone}
+              country={activity.country}
+              subregion={activity.subregion}
+              region={activity.region}
+              geolocation={activity.geolocation}
+            />,
           ])}
         </Container>
       </ThemeProvider>
