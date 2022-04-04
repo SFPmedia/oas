@@ -77,7 +77,7 @@ export default function SingularActivity(props) {
           <CardContent>
             <Grid container justifyContent="center">
               <Grid item xs={6} md={6} lg={6} xl={6}>
-                <div className="ActivityIntroduction" id={"AI" + props.id}>
+                <div id={"AI" + props.id}>
                   <Typography variant="h4" color="initial" gutterbottom="true">
                     General Info
                   </Typography>

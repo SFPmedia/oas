@@ -1,11 +1,10 @@
-import "../componentStyles/Footer.scss";
 import React from "react";
 import { Typography, Grid } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../componentStyles/AboutPageStyle";
 import { lightGreen } from "@mui/material/colors";
 
-export default function Footer() {
+export default function AboutPage() {
   return (
     <ThemeProvider theme={theme}>
       <Grid container rowSpacing={20} justifyContent="center">

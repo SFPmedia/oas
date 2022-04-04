@@ -1,4 +1,3 @@
-import "../componentStyles/Navigation.scss";
 import React from "react";
 import { Box, AppBar, Toolbar, Link } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
@@ -11,7 +10,7 @@ export default function Navigation() {
         <AppBar position="static">
           <Toolbar sx={{ justifyContent: "center" }}>
             <Link href="/">Home</Link>
-            <Link href="/Footer">About This Page</Link>
+            <Link href="/AboutPage">About This Page</Link>
           </Toolbar>
         </AppBar>
       </Box>

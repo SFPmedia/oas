@@ -1,7 +1,7 @@
 // Abbreviation explanations:
 // "NU" = Near User, "ls" = local storage, "AL" = Activity List, "GM" = Google Maps
 
-import "../componentStyles/ActivityList.scss";
+import "../componentStyles/ActivityList.css";
 import React from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../componentStyles/ActivityListTheme";

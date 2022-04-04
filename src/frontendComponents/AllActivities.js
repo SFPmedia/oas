@@ -1,7 +1,7 @@
 // Abbreviation explanations:
 // "ls" = local storage, "SL" = Search List
 
-import "../componentStyles/ActivityList.scss";
+import "../componentStyles/ActivityList.css";
 import React from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../componentStyles/ActivityListTheme";

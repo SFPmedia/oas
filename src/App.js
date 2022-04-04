@@ -1,8 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import "./App.scss";
 import Navigation from "./frontendComponents/Navigation";
-import Footer from "./frontendComponents/Footer";
+import AboutPage from "./frontendComponents/AboutPage";
 import AllActivities from "./frontendComponents/AllActivities";
 import AllActivitiesNU from "./frontendComponents/AllActivitiesNU";
 import FourOhFour from "./frontendComponents/FourOhFour";
@@ -24,7 +23,7 @@ function App() {
             element={
               <>
                 <ThemeProvider theme={theme}>
-                  <Typography variant="h1" color="initial">
+                  <Typography variant="h1" color="initial" textAlign="center">
                     Outdoor Activities
                   </Typography>
                   <Grid container spacing={2} justifyContent="center">
@@ -39,7 +38,7 @@ function App() {
               </>
             }
           />
-          <Route exact path="/Footer" element={<Footer />} />
+          <Route exact path="/AboutPage" element={<AboutPage />} />
           <Route exact path="*" element={<FourOhFour />} />
         </Routes>
       </div>
