@@ -27,7 +27,6 @@ export default function AboutPage() {
           lg={5}
           xl={5}
           sx={{ bgcolor: lightGreen[100], paddingTop: "0px !important" }}
-          container
           justifyContent="center"
         >
           <Typography variant="h2" textAlign="center" gutterBottom>
