@@ -5,17 +5,16 @@ import AboutPage from "./frontendComponents/AboutPage";
 import AllActivities from "./frontendComponents/AllActivities";
 import AllActivitiesNU from "./frontendComponents/AllActivitiesNU";
 import FourOhFour from "./frontendComponents/FourOhFour";
-import Typography from "@mui/material/Typography";
-import { CssBaseline, Grid } from "@mui/material";
+import { CssBaseline, Grid, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./componentStyles/ActivityListTheme";
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <CssBaseline />
-        <Navigation />
+    <div className="App">
+      <CssBaseline />
+      <Navigation />
+      <Router>
         <Routes>
           <Route
             exact
@@ -39,8 +38,8 @@ function App() {
           <Route exact path="/AboutPage" element={<AboutPage />} />
           <Route exact path="*" element={<FourOhFour />} />
         </Routes>
-      </div>
-    </Router>
+      </Router>
+    </div>
   );
 }
 
