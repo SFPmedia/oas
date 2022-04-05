@@ -17,15 +17,8 @@ export default class AllActivitiesNU extends React.Component {
     this.state = {
       activitiesNU: [],
       positionAccuracy: null,
-      expanded: false,
     };
   }
-
-  handleExpandClickNU = () => {
-    this.setState({
-      expanded: !this.state.expanded,
-    });
-  };
 
   componentDidMount() {
     if (

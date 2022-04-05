@@ -55,7 +55,7 @@ export default function SingularActivity(props) {
 
   return (
     <ThemeProvider theme={theme}>
-      <Card key={props.id} id={"AL" + props.id} gutterbottom="true">
+      <Card key={props.id} id={"AL" + props.id}>
         <Grid container>
           <Grid item xs={6} md={6} lg={6} xl={6}>
             <CardHeader title={props.name} />
@@ -78,79 +78,46 @@ export default function SingularActivity(props) {
             <Grid container justifyContent="center">
               <Grid item xs={6} md={6} lg={6} xl={6}>
                 <div id={"AI" + props.id}>
-                  <Typography variant="h4" color="initial" gutterbottom="true">
+                  <Typography variant="h4" color="initial">
                     General Info
                   </Typography>
                   {props.type ? (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
+                    <Typography variant="body2" color="initial">
                       Type: <br /> {props.type}
                     </Typography>
                   ) : (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
-                      {" "}
+                    <Typography variant="body2" color="initial">
                       Type: <br />
                       Not available
                     </Typography>
                   )}
                   {props.description ? (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
+                    <Typography variant="body2" color="initial">
                       Description: <br /> {props.description}
                     </Typography>
                   ) : (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
+                    <Typography variant="body2" color="initial">
                       Description: <br />
                       Not available
                     </Typography>
                   )}
                   {props.distance ? (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
+                    <Typography variant="body2" color="initial">
                       Distance: <br /> {props.distance}
                     </Typography>
                   ) : (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
+                    <Typography variant="body2" color="initial">
                       Distance: <br />
                       Not available
                     </Typography>
                   )}
 
                   {props.price ? (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
+                    <Typography variant="body2" color="initial">
                       Price: <br /> {props.price},-
                     </Typography>
                   ) : (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
+                    <Typography variant="body2" color="initial">
                       Price: <br />
                       Not available
                     </Typography>
@@ -159,59 +126,35 @@ export default function SingularActivity(props) {
               </Grid>
               <Grid item xs={6} md={6} lg={6} xl={6}>
                 <div className="ActivityLocalLocation" id={"ALL" + props.id}>
-                  <Typography variant="h4" color="initial" gutterbottom="true">
+                  <Typography variant="h4" color="initial">
                     National Scale
                   </Typography>
                   {props.city ? (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
+                    <Typography variant="body2" color="initial">
                       City: <br /> {props.city}
                     </Typography>
                   ) : (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
+                    <Typography variant="body2" color="initial">
                       City: <br />
                       Not available
                     </Typography>
                   )}
                   {props.municipality ? (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
+                    <Typography variant="body2" color="initial">
                       Municipality: <br /> {props.municipality}
                     </Typography>
                   ) : (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
+                    <Typography variant="body2" color="initial">
                       Municipality: <br />
                       Not available
                     </Typography>
                   )}
                   {props.county ? (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
+                    <Typography variant="body2" color="initial">
                       County: <br /> {props.county}
                     </Typography>
                   ) : (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
+                    <Typography variant="body2" color="initial">
                       County: <br />
                       Not available
                     </Typography>
@@ -223,51 +166,31 @@ export default function SingularActivity(props) {
                   className="ActivityGeneralInformation"
                   id={"AGI" + props.id}
                 >
-                  <Typography variant="h4" color="initial" gutterbottom="true">
+                  <Typography variant="h4" color="initial">
                     Practical Info
                   </Typography>
                   {props.open_hours ? (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
+                    <Typography variant="body2" color="initial">
                       Opening Hours: <br /> {props.open_hours}
                     </Typography>
                   ) : (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
+                    <Typography variant="body2" color="initial">
                       Opening Hours: <br />
                       Not available
                     </Typography>
                   )}
                   {props.closing_hours ? (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
+                    <Typography variant="body2" color="initial">
                       Closing Hours: <br /> {props.closing_hours}
                     </Typography>
                   ) : (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
+                    <Typography variant="body2" color="initial">
                       Closing Hours: <br />
                       Not available
                     </Typography>
                   )}
                   {props.website_link ? (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
+                    <Typography variant="body2" color="initial">
                       Website: <br />
                       <a
                         href={props.website_link}
@@ -278,29 +201,17 @@ export default function SingularActivity(props) {
                       </a>
                     </Typography>
                   ) : (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
+                    <Typography variant="body2" color="initial">
                       Website: <br />
                       Not available
                     </Typography>
                   )}
                   {props.phone ? (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
+                    <Typography variant="body2" color="initial">
                       Phone: <br /> {props.phone}
                     </Typography>
                   ) : (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
+                    <Typography variant="body2" color="initial">
                       Phone: <br />
                       Not available
                     </Typography>
@@ -309,59 +220,35 @@ export default function SingularActivity(props) {
               </Grid>
               <Grid item xs={6} md={6} lg={6} xl={6}>
                 <div className="ActivityGlobalPosition" id={"AGP" + props.id}>
-                  <Typography variant="h4" color="initial" gutterbottom="true">
+                  <Typography variant="h4" color="initial">
                     Global Scale
                   </Typography>
                   {props.country ? (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
+                    <Typography variant="body2" color="initial">
                       Country: <br /> {props.country}
                     </Typography>
                   ) : (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
+                    <Typography variant="body2" color="initial">
                       Country: <br />
                       Not available
                     </Typography>
                   )}
                   {props.subregion ? (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
+                    <Typography variant="body2" color="initial">
                       Subregion: <br /> {props.subregion}
                     </Typography>
                   ) : (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
+                    <Typography variant="body2" color="initial">
                       Subregion: <br />
                       Not available
                     </Typography>
                   )}
                   {props.region ? (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
+                    <Typography variant="body2" color="initial">
                       Region: <br /> {props.region}
                     </Typography>
                   ) : (
-                    <Typography
-                      variant="body2"
-                      color="initial"
-                      gutterbottom="true"
-                    >
+                    <Typography variant="body2" color="initial">
                       Region: <br />
                       Not available
                     </Typography>

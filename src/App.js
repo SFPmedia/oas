@@ -21,21 +21,19 @@ function App() {
             exact
             path="/"
             element={
-              <>
-                <ThemeProvider theme={theme}>
-                  <Typography variant="h1" color="initial" textAlign="center">
-                    Outdoor Activities
-                  </Typography>
-                  <Grid container spacing={2} justifyContent="center">
-                    <Grid item xs={12} md={10} lg={6} xl={5}>
-                      <AllActivities />
-                    </Grid>
-                    <Grid item xs={12} md={10} lg={6} xl={5}>
-                      <AllActivitiesNU />
-                    </Grid>
+              <ThemeProvider theme={theme}>
+                <Typography variant="h1" color="initial" textAlign="center">
+                  Outdoor Activities
+                </Typography>
+                <Grid container spacing={2} justifyContent="center">
+                  <Grid item xs={12} md={10} lg={6} xl={5}>
+                    <AllActivities />
                   </Grid>
-                </ThemeProvider>
-              </>
+                  <Grid item xs={12} md={10} lg={6} xl={5}>
+                    <AllActivitiesNU />
+                  </Grid>
+                </Grid>
+              </ThemeProvider>
             }
           />
           <Route exact path="/AboutPage" element={<AboutPage />} />

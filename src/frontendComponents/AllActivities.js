@@ -120,6 +120,7 @@ export default class AllActivities extends React.Component {
     }
   }
 
+  // Determines whether or not the list is shown or not, when the button "SEARCH BY" is clicked.
   searchSelectVisible = () => {
     if (this.state.searchSelectVisibleStatus === false) {
       return this.setState({ searchSelectVisibleStatus: true });

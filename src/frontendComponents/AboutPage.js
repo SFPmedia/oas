@@ -1,7 +1,7 @@
 import React from "react";
 import { Typography, Grid } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
-import theme from "../componentStyles/AboutPageStyle";
+import theme from "../componentStyles/AboutPageTheme";
 import { lightGreen } from "@mui/material/colors";
 
 export default function AboutPage() {
