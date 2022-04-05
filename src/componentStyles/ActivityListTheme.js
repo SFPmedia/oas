@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material";
-import { lightBlue, lightGreen } from "@mui/material/colors";
+import { lightGreen } from "@mui/material/colors";
 
 const theme = createTheme({
   typography: {
@@ -48,11 +48,6 @@ const theme = createTheme({
           margin: "1em 0 0 0",
         },
       },
-    },
-  },
-  palette: {
-    primary: {
-      main: lightBlue[500],
     },
   },
 });
