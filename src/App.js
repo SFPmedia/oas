@@ -22,7 +22,7 @@ function App() {
             path="/"
             element={
               <ThemeProvider theme={theme}>
-                <Typography variant="h1" color="initial" textAlign="center">
+                <Typography variant="h1" textAlign="center">
                   Outdoor Activities
                 </Typography>
                 <Grid container spacing={2} justifyContent="center">

@@ -230,7 +230,7 @@ export default class AllActivities extends React.Component {
           <Button variant="contained" onClick={this.forceListUpdate}>
             Force Latest Update
           </Button>
-          <Typography variant="h2" color="initial" align="center">
+          <Typography variant="h2" align="center">
             All Activities
           </Typography>
 

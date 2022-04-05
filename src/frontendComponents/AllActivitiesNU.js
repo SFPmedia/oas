@@ -168,11 +168,7 @@ export default class AllActivitiesNU extends React.Component {
             <Button variant="contained" onClick={this.forceListUpdateNU}>
               Force Latest Update
             </Button>
-            <Typography
-              variant="body1"
-              color="initial"
-              sx={{ marginTop: "1em" }}
-            >
+            <Typography variant="body1" sx={{ marginTop: "1em" }}>
               User accuracy: {this.state.positionAccuracy}m
             </Typography>
           </div>
