@@ -84,7 +84,7 @@ export default function SingularActivity(props) {
                       Type: <br /> {props.type}
                     </Typography>
                   ) : (
-                    <Typography variant="body2">
+                    <Typography variant="body2" color="GrayText">
                       Type: <br />
                       Not available
                     </Typography>
@@ -94,7 +94,7 @@ export default function SingularActivity(props) {
                       Description: <br /> {props.description}
                     </Typography>
                   ) : (
-                    <Typography variant="body2">
+                    <Typography variant="body2" color="GrayText">
                       Description: <br />
                       Not available
                     </Typography>
@@ -104,7 +104,7 @@ export default function SingularActivity(props) {
                       Distance: <br /> {props.distance}
                     </Typography>
                   ) : (
-                    <Typography variant="body2">
+                    <Typography variant="body2" color="GrayText">
                       Distance: <br />
                       Not available
                     </Typography>
@@ -115,7 +115,7 @@ export default function SingularActivity(props) {
                       Price: <br /> {props.price},-
                     </Typography>
                   ) : (
-                    <Typography variant="body2">
+                    <Typography variant="body2" color="GrayText">
                       Price: <br />
                       Not available
                     </Typography>
@@ -130,7 +130,7 @@ export default function SingularActivity(props) {
                       City: <br /> {props.city}
                     </Typography>
                   ) : (
-                    <Typography variant="body2">
+                    <Typography variant="body2" color="GrayText">
                       City: <br />
                       Not available
                     </Typography>
@@ -140,7 +140,7 @@ export default function SingularActivity(props) {
                       Municipality: <br /> {props.municipality}
                     </Typography>
                   ) : (
-                    <Typography variant="body2">
+                    <Typography variant="body2" color="GrayText">
                       Municipality: <br />
                       Not available
                     </Typography>
@@ -150,7 +150,7 @@ export default function SingularActivity(props) {
                       County: <br /> {props.county}
                     </Typography>
                   ) : (
-                    <Typography variant="body2">
+                    <Typography variant="body2" color="GrayText">
                       County: <br />
                       Not available
                     </Typography>
@@ -168,7 +168,7 @@ export default function SingularActivity(props) {
                       Opening Hours: <br /> {props.open_hours}
                     </Typography>
                   ) : (
-                    <Typography variant="body2">
+                    <Typography variant="body2" color="GrayText">
                       Opening Hours: <br />
                       Not available
                     </Typography>
@@ -178,7 +178,7 @@ export default function SingularActivity(props) {
                       Closing Hours: <br /> {props.closing_hours}
                     </Typography>
                   ) : (
-                    <Typography variant="body2">
+                    <Typography variant="body2" color="GrayText">
                       Closing Hours: <br />
                       Not available
                     </Typography>
@@ -195,7 +195,7 @@ export default function SingularActivity(props) {
                       </a>
                     </Typography>
                   ) : (
-                    <Typography variant="body2">
+                    <Typography variant="body2" color="GrayText">
                       Website: <br />
                       Not available
                     </Typography>
@@ -205,7 +205,7 @@ export default function SingularActivity(props) {
                       Phone: <br /> {props.phone}
                     </Typography>
                   ) : (
-                    <Typography variant="body2">
+                    <Typography variant="body2" color="GrayText">
                       Phone: <br />
                       Not available
                     </Typography>
@@ -220,7 +220,7 @@ export default function SingularActivity(props) {
                       Country: <br /> {props.country}
                     </Typography>
                   ) : (
-                    <Typography variant="body2">
+                    <Typography variant="body2" color="GrayText">
                       Country: <br />
                       Not available
                     </Typography>
@@ -230,7 +230,7 @@ export default function SingularActivity(props) {
                       Subregion: <br /> {props.subregion}
                     </Typography>
                   ) : (
-                    <Typography variant="body2">
+                    <Typography variant="body2" color="GrayText">
                       Subregion: <br />
                       Not available
                     </Typography>
@@ -240,7 +240,7 @@ export default function SingularActivity(props) {
                       Region: <br /> {props.region}
                     </Typography>
                   ) : (
-                    <Typography variant="body2">
+                    <Typography variant="body2" color="GrayText">
                       Region: <br />
                       Not available
                     </Typography>
