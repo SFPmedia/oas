@@ -184,14 +184,14 @@ export default function SingularActivity(props) {
                     </Typography>
                   )}
                   {props.website_link ? (
-                    <Typography variant="body2">
+                    <Typography variant="body2" noWrap>
                       Website: <br />
                       <a
                         href={props.website_link}
                         rel="noreferrer"
                         target="_blank"
                       >
-                        {props.website_link.substring(0, 36)}
+                        {props.website_link}
                       </a>
                     </Typography>
                   ) : (
