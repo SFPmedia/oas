@@ -130,6 +130,10 @@ export default class AllActivitiesNU extends React.Component {
     });
   };
 
+  insertNewListNU = () => {
+    navigator.geolocation.getCurrentPosition(this.getCurrentLocation);
+  };
+
   // forceListUpdateNU() gives the user a way to clear the local storage, get the latest data from the server and then insert that into the local storage and "this.state.activities" state.
   forceListUpdateNU = () => {
     localStorage.removeItem("activitiesNU");
@@ -161,14 +165,7 @@ export default class AllActivitiesNU extends React.Component {
       <ThemeProvider theme={theme}>
         <Container>
           <div className="activityListTop">
-            <Button
-              variant="contained"
-              onClick={() =>
-                navigator.geolocation.getCurrentPosition(
-                  this.getCurrentLocation
-                )
-              }
-            >
+            <Button variant="contained" onClick={this.forceListUpdateNU}>
               Force Latest Update
             </Button>
             <Typography variant="body1" sx={{ marginTop: "1em" }}>
