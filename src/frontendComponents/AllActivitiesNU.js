@@ -125,8 +125,12 @@ export default class AllActivitiesNU extends React.Component {
   };
 
   accuracySuccess = (position) => {
+    const accuracyToKiloMeter = position.coords.accuracy / 1000;
+    const accuracyToKiloMeterString = accuracyToKiloMeter
+      .toString()
+      .substring(0, 4);
     return this.setState({
-      positionAccuracy: position.coords.accuracy,
+      positionAccuracy: accuracyToKiloMeterString,
     });
   };
 
@@ -164,8 +168,8 @@ export default class AllActivitiesNU extends React.Component {
             <Button variant="contained" onClick={this.forceListUpdateNU}>
               Force Latest Update
             </Button>
-            <Typography variant="body1" sx={{ marginTop: "1em" }}>
-              User accuracy: {this.state.positionAccuracy}m
+            <Typography variant="body1" sx={{ marginTop: "1em" }} noWrap>
+              User accuracy: {this.state.positionAccuracy}km
             </Typography>
           </div>
           <Typography variant="h2" color="initial" align="center">
