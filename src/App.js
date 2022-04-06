@@ -35,8 +35,8 @@ function App() {
               </ThemeProvider>
             }
           />
-          <Route exact path="/AboutPage" element={<AboutPage />} />
-          <Route exact path="*" element={<FourOhFour />} />
+          <Route path="/AboutPage" element={<AboutPage />} />
+          <Route path="*" element={<FourOhFour />} />
         </Routes>
       </Router>
     </div>
