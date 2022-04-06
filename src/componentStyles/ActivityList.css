@@ -13,13 +13,11 @@
 
 .dropdownSL {
   position: relative;
-  display: inline-block;
   margin-top: 15px;
   margin-right: 0.2em;
 }
 
 .dropdownContentSL {
-  display: block;
   position: absolute;
   min-width: 150px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
