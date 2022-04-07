@@ -29,7 +29,7 @@ export default class AllActivitiesNU extends React.Component {
         localStorage.getItem("activitiesNU")
       );
       const activitiesNU = getLocalStorageNU;
-      this.setState({ activitiesNU });
+      this.setState({ activitiesNU: activitiesNU });
       console.log("LocalStorage activitiesNU have been found. Using those.");
     } else {
       localStorage.removeItem("activitiesNU");
@@ -48,7 +48,7 @@ export default class AllActivitiesNU extends React.Component {
             localStorage.getItem("activitiesNU")
           );
           const activitiesNU = getLocalStorage;
-          this.setState({ activitiesNU });
+          this.setState({ activitiesNU: activitiesNU });
           console.log(
             "LocalStorage activitiesNU were not found. Getting and using new ones."
           );
@@ -152,7 +152,7 @@ export default class AllActivitiesNU extends React.Component {
           localStorage.getItem("activitiesNU")
         );
         const activitiesNU = getLocalStorage;
-        this.setState({ activitiesNU });
+        this.setState({ activitiesNU: activitiesNU });
         console.log("Forced update of localstorage data and react state.");
         alert(
           "Forced update successful. The list has the newest data straight from the database."

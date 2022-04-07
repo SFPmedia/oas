@@ -92,7 +92,7 @@ export default class AllActivities extends React.Component {
     ) {
       const getLocalStorage = JSON.parse(localStorage.getItem("activities"));
       const activities = getLocalStorage;
-      this.setState({ activities });
+      this.setState({ activities: activities });
       console.log("LocalStorage activities have been found. Using those.");
     } else {
       localStorage.removeItem("activities");
@@ -112,7 +112,7 @@ export default class AllActivities extends React.Component {
             localStorage.getItem("activities")
           );
           const activities = getLocalStorage;
-          this.setState({ activities });
+          this.setState({ activities: activities });
           console.log(
             "LocalStorage activities were not found. Getting and using new ones."
           );
@@ -206,7 +206,7 @@ export default class AllActivities extends React.Component {
         );
         const getLocalStorage = JSON.parse(localStorage.getItem("activities"));
         const activities = getLocalStorage;
-        this.setState({ activities });
+        this.setState({ activities: activities });
         console.log("Forced update of localstorage data and react state.");
         alert(
           "Forced update successful. The list has the newest data straight from the database."
