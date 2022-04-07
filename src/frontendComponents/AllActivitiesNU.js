@@ -93,28 +93,11 @@ export default class AllActivitiesNU extends React.Component {
 
       const d = R * c; // in metres
       const kmConverstion = d / 1000;
-      const kmShortened = kmConverstion.toFixed(2);
 
       if (kmConverstion < userInput) {
-        console.log(
-          "total distance to " +
-            getLocalStorageNU[k].name +
-            ": " +
-            kmShortened +
-            "is < userinput: " +
-            userInput
-        );
         distanceResult.push(1);
         searchResultNU.push(getLocalStorageNU[k]);
       } else {
-        console.log(
-          "total distance to " +
-            getLocalStorageNU[k].name +
-            ": " +
-            kmShortened +
-            "is > userinput: " +
-            userInput
-        );
         distanceResult.push(0);
       }
     }
