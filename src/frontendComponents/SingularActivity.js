@@ -32,7 +32,7 @@ export default function SingularActivity(props) {
     name: PropTypes.string.isRequired,
     type: PropTypes.string,
     description: PropTypes.string,
-    distance: PropTypes.number,
+    distance: PropTypes.string,
     price: PropTypes.string,
     city: PropTypes.string,
     municipality: PropTypes.string,
