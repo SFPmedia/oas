@@ -16,7 +16,7 @@ export default function AboutPage() {
           xl={11}
           sx={{ paddingTop: "0px !important" }}
         >
-          <Typography variant="h1" align="center" gutterBottom>
+          <Typography variant="h1" textAlign="center" gutterBottom>
             About this website
           </Typography>
         </Grid>

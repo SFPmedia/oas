@@ -172,7 +172,7 @@ export default class AllActivitiesNU extends React.Component {
               User accuracy: {this.state.positionAccuracy}km
             </Typography>
           </div>
-          <Typography variant="h2" color="initial" align="center">
+          <Typography variant="h2" color="initial" textAlign="center">
             Activities Near You
           </Typography>
           <div id="filterArea">
