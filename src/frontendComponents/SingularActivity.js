@@ -42,8 +42,8 @@ export default function SingularActivity(props) {
             <Grid item xs={12} md={12} lg={12} xl={12}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
+                aria-controls={"Panel Header " + props.name}
+                id={"PanelHeeader_" + props.id}
               >
                 <CardHeader title={props.name} />
               </AccordionSummary>
