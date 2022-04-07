@@ -43,7 +43,7 @@ export default function SingularActivity(props) {
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls={"Panel Header " + props.name}
-                id={"PanelHeeader_" + props.id}
+                id={"PanelHeader_" + props.id}
               >
                 <CardHeader title={props.name} />
               </AccordionSummary>
