@@ -19,7 +19,5 @@
     }
   ],
   "start_url": "https://sfpmedia.dk",
-  "display": "standalone",
-  "theme_color": "green",
-  "background_color": "white"
+  "display": "standalone"
 }
