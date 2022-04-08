@@ -2,33 +2,68 @@
 // "ls" = local storage, "SL" = Search List
 
 import "../componentStyles/ActivityList.css";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../componentStyles/ActivityListTheme";
 import { Container, Button, Typography, TextField } from "@mui/material";
 import SingularActivity from "./SingularActivity";
 
-export default class AllActivities extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activities: [],
-      userSearch: " Name",
-      searchInput: "name",
-      searchSelectVisibleStatus: false,
-    };
-  }
+export default function AllActivities() {
+  const [activities, setActivities] = useState([]);
+  const [userSearch, setUserSearch] = useState(" Name");
+  const [searchInput, setSearchInput] = useState("name");
+  const [searchSelectVisibleStatus, setSearchSelectVisibleStatus] =
+    useState(false);
+
+  // When the react component has mounted, the useEffect checks if data can already be found in the local storage and if said data is not older than 18 hours.
+  // If data has been found and it is not older than 18 hours. Then that data will be inserted into the "activities" list. This data will then
+  // be used to generate the list.
+  // If the 2 conditions are not true. It will retrieve a new set of data from the database on the server, via a webAPI and insert that data into "activities" instead.
+  useEffect(() => {
+    if (
+      localStorage.getItem("activities") &&
+      new Date().getTime() <= localStorage.getItem("lsExpirationTime")
+    ) {
+      const getLocalStorage = JSON.parse(localStorage.getItem("activities"));
+      const activities = getLocalStorage;
+      setActivities(activities);
+      console.log("LocalStorage activities have been found. Using those.");
+    } else {
+      localStorage.removeItem("activities");
+      localStorage.removeItem("lsExpirationTime");
+
+      fetch("https://sfpmedia.dk/db_api_oas/readActivities.php")
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          localStorage.setItem("activities", JSON.stringify(data));
+          localStorage.setItem(
+            "lsExpirationTime",
+            JSON.stringify(new Date().getTime() + 1000 * 60 * 60 * 18)
+          );
+          const getLocalStorage = JSON.parse(
+            localStorage.getItem("activities")
+          );
+          const activities = getLocalStorage;
+          setActivities(activities);
+          console.log(
+            "LocalStorage activities were not found. Getting and using new ones."
+          );
+        });
+    }
+  }, []);
 
   // Whenever a person types in the search bar, this function filters through the entire list and only returns a list that corresponds with
   // what the user is searching for
-  handleFilterActivityList = () => {
+  const handleFilterActivityList = () => {
     const filterInputValue = document.getElementById("filterInput").value;
     const getLocalStorage = JSON.parse(localStorage.getItem("activities"));
     let searchResult = [];
 
     for (let i = 0; i < getLocalStorage.length; i++) {
       var filterThisInput = getLocalStorage[i].name.toLowerCase();
-      let userSearchInput = this.state.searchInput;
+      let userSearchInput = searchInput;
 
       switch (userSearchInput) {
         case "name":
@@ -76,61 +111,20 @@ export default class AllActivities extends React.Component {
         searchResult.push(getLocalStorage[i]);
       }
     }
-    this.setState({
-      activities: searchResult,
-    });
+    setActivities(searchResult);
   };
 
-  // When the react component has mounted, it is checked if data can already be found in the local storage and if said data is not older than 18 hours.
-  // If data has been found and it is not older than 18 hours. Then that data will be inserted into the "this.state.activities" list. This data will then
-  // be used to generate the list.
-  // If the 2 conditions are not true. It will retrieve a new set of data from the database on the server, via a webAPI and insert that data into "this.state.activities" instead.
-  componentDidMount() {
-    if (
-      localStorage.getItem("activities") &&
-      new Date().getTime() <= localStorage.getItem("lsExpirationTime")
-    ) {
-      const getLocalStorage = JSON.parse(localStorage.getItem("activities"));
-      const activities = getLocalStorage;
-      this.setState({ activities: activities });
-      console.log("LocalStorage activities have been found. Using those.");
-    } else {
-      localStorage.removeItem("activities");
-      localStorage.removeItem("lsExpirationTime");
-
-      fetch("https://sfpmedia.dk/db_api_oas/readActivities.php")
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          localStorage.setItem("activities", JSON.stringify(data));
-          localStorage.setItem(
-            "lsExpirationTime",
-            JSON.stringify(new Date().getTime() + 1000 * 60 * 60 * 18)
-          );
-          const getLocalStorage = JSON.parse(
-            localStorage.getItem("activities")
-          );
-          const activities = getLocalStorage;
-          this.setState({ activities: activities });
-          console.log(
-            "LocalStorage activities were not found. Getting and using new ones."
-          );
-        });
-    }
-  }
-
   // Determines whether or not the list is shown or not, when the button "SEARCH BY" is clicked.
-  searchSelectVisible = () => {
-    if (this.state.searchSelectVisibleStatus === false) {
-      return this.setState({ searchSelectVisibleStatus: true });
+  const searchSelectVisible = () => {
+    if (searchSelectVisibleStatus === false) {
+      return setSearchSelectVisibleStatus(true);
     } else {
-      return this.setState({ searchSelectVisibleStatus: false });
+      return setSearchSelectVisibleStatus(false);
     }
   };
 
   // The searchSelect() function allows the user to choose which type of information the filter should search by.
-  searchSelect(Search) {
+  const searchSelect = (Search) => {
     var text;
     var userSearchType;
     var searchType = Search;
@@ -184,13 +178,13 @@ export default class AllActivities extends React.Component {
         text = " Name";
         userSearchType = "name";
     }
-    this.setState({ userSearch: text });
-    this.setState({ searchInput: userSearchType });
-    this.setState({ searchSelectVisibleStatus: false });
-  }
+    setUserSearch(text);
+    setSearchInput(userSearchType);
+    setSearchSelectVisibleStatus(false);
+  };
 
-  // forceListUpdate() gives the user a way to clear the local storage, get the latest data from the server and then insert that into the local storage and "this.state.activities" state.
-  forceListUpdate = () => {
+  // forceListUpdate() gives the user a way to clear the local storage, get the latest data from the server and then insert that into the local storage and "activities" state.
+  const forceListUpdate = () => {
     localStorage.removeItem("activities");
     localStorage.removeItem("lsExpirationTime");
 
@@ -206,7 +200,7 @@ export default class AllActivities extends React.Component {
         );
         const getLocalStorage = JSON.parse(localStorage.getItem("activities"));
         const activities = getLocalStorage;
-        this.setState({ activities: activities });
+        setActivities(activities);
         console.log("Forced update of localstorage data and react state.");
         alert(
           "Forced update successful. The list has the newest data straight from the database."
@@ -215,178 +209,176 @@ export default class AllActivities extends React.Component {
   };
 
   // searchSelectColor() simply highlights the color of the selected search criteria.
-  searchSelectColor(searchColor) {
-    if (this.state.searchInput === searchColor) {
+  const searchSelectColor = (searchColor) => {
+    if (searchInput === searchColor) {
       return "rgba(255, 222, 113, 1)";
     } else {
       return "rgba(203, 224, 199, 1)";
     }
-  }
+  };
 
-  render() {
-    return (
-      <ThemeProvider theme={theme}>
-        <Container>
-          <Button variant="contained" onClick={this.forceListUpdate}>
-            Force Latest Update
-          </Button>
-          <Typography variant="h2" textAlign="center">
-            All Activities
-          </Typography>
+  return (
+    <ThemeProvider theme={theme}>
+      <Container>
+        <Button variant="contained" onClick={forceListUpdate}>
+          Force Latest Update
+        </Button>
+        <Typography variant="h2" textAlign="center">
+          All Activities
+        </Typography>
 
-          <div id="filterArea">
-            <div className="dropdownSL">
+        <div id="filterArea">
+          <div className="dropdownSL">
+            <Button
+              variant="contained"
+              sx={{ marginTop: "0" }}
+              onClick={searchSelectVisible}
+            >
+              Search by
+            </Button>
+            <Container
+              className="dropdownContentSL"
+              sx={
+                searchSelectVisibleStatus
+                  ? { display: "block" }
+                  : { display: "none" }
+              }
+            >
               <Button
                 variant="contained"
-                sx={{ marginTop: "0" }}
-                onClick={this.searchSelectVisible}
+                onClick={() => searchSelect("Name")}
+                style={{
+                  backgroundColor: searchSelectColor("name"),
+                }}
               >
-                Search by
+                Name
               </Button>
-              <Container
-                className="dropdownContentSL"
-                sx={
-                  this.state.searchSelectVisibleStatus
-                    ? { display: "block" }
-                    : { display: "none" }
-                }
+
+              <Button
+                variant="contained"
+                onClick={() => searchSelect("Type")}
+                style={{
+                  backgroundColor: searchSelectColor("type"),
+                }}
               >
-                <Button
-                  variant="contained"
-                  onClick={() => this.searchSelect("Name")}
-                  style={{
-                    backgroundColor: this.searchSelectColor("name"),
-                  }}
-                >
-                  Name
-                </Button>
-
-                <Button
-                  variant="contained"
-                  onClick={() => this.searchSelect("Type")}
-                  style={{
-                    backgroundColor: this.searchSelectColor("type"),
-                  }}
-                >
-                  Type
-                </Button>
-                <Button
-                  variant="contained"
-                  onClick={() => this.searchSelect("Description")}
-                  style={{
-                    backgroundColor: this.searchSelectColor("description"),
-                  }}
-                >
-                  Description
-                </Button>
-                <Button
-                  variant="contained"
-                  onClick={() => this.searchSelect("City")}
-                  style={{
-                    backgroundColor: this.searchSelectColor("city"),
-                  }}
-                >
-                  City
-                </Button>
-                <Button
-                  variant="contained"
-                  onClick={() => this.searchSelect("Municipality")}
-                  style={{
-                    backgroundColor: this.searchSelectColor("municipality"),
-                  }}
-                >
-                  Municipality
-                </Button>
-                <Button
-                  variant="contained"
-                  onClick={() => this.searchSelect("County")}
-                  style={{
-                    backgroundColor: this.searchSelectColor("county"),
-                  }}
-                >
-                  County
-                </Button>
-                <Button
-                  variant="contained"
-                  onClick={() => this.searchSelect("Opening-Hours")}
-                  style={{
-                    backgroundColor: this.searchSelectColor("opening-hours"),
-                  }}
-                >
-                  Opening-Hours
-                </Button>
-                <Button
-                  variant="contained"
-                  onClick={() => this.searchSelect("Closing-Hours")}
-                  style={{
-                    backgroundColor: this.searchSelectColor("closing-hours"),
-                  }}
-                >
-                  Closing-Hours
-                </Button>
-                <Button
-                  variant="contained"
-                  onClick={() => this.searchSelect("Country")}
-                  style={{
-                    backgroundColor: this.searchSelectColor("country"),
-                  }}
-                >
-                  Country
-                </Button>
-                <Button
-                  variant="contained"
-                  onClick={() => this.searchSelect("Subregion")}
-                  style={{
-                    backgroundColor: this.searchSelectColor("subregion"),
-                  }}
-                >
-                  Subregion
-                </Button>
-                <Button
-                  variant="contained"
-                  onClick={() => this.searchSelect("Region")}
-                  style={{
-                    backgroundColor: this.searchSelectColor("region"),
-                  }}
-                >
-                  Region
-                </Button>
-              </Container>
-            </div>
-
-            <TextField
-              id="filterInput"
-              label={this.state.userSearch}
-              type="search"
-              variant="standard"
-              onChange={this.handleFilterActivityList}
-            />
+                Type
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => searchSelect("Description")}
+                style={{
+                  backgroundColor: searchSelectColor("description"),
+                }}
+              >
+                Description
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => searchSelect("City")}
+                style={{
+                  backgroundColor: searchSelectColor("city"),
+                }}
+              >
+                City
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => searchSelect("Municipality")}
+                style={{
+                  backgroundColor: searchSelectColor("municipality"),
+                }}
+              >
+                Municipality
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => searchSelect("County")}
+                style={{
+                  backgroundColor: searchSelectColor("county"),
+                }}
+              >
+                County
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => searchSelect("Opening-Hours")}
+                style={{
+                  backgroundColor: searchSelectColor("opening-hours"),
+                }}
+              >
+                Opening-Hours
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => searchSelect("Closing-Hours")}
+                style={{
+                  backgroundColor: searchSelectColor("closing-hours"),
+                }}
+              >
+                Closing-Hours
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => searchSelect("Country")}
+                style={{
+                  backgroundColor: searchSelectColor("country"),
+                }}
+              >
+                Country
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => searchSelect("Subregion")}
+                style={{
+                  backgroundColor: searchSelectColor("subregion"),
+                }}
+              >
+                Subregion
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => searchSelect("Region")}
+                style={{
+                  backgroundColor: searchSelectColor("region"),
+                }}
+              >
+                Region
+              </Button>
+            </Container>
           </div>
 
-          {this.state.activities.map((activity) => [
-            <SingularActivity
-              key={activity.id}
-              id={activity.id}
-              name={activity.name}
-              type={activity.type}
-              description={activity.description}
-              distance={activity.distance}
-              price={activity.price}
-              city={activity.city}
-              municipality={activity.municipality}
-              county={activity.county}
-              open_hours={activity.open_hours}
-              closing_hours={activity.closing_hours}
-              website_link={activity.website_link}
-              phone={activity.phone}
-              country={activity.country}
-              subregion={activity.subregion}
-              region={activity.region}
-              geolocation={activity.geolocation}
-            />,
-          ])}
-        </Container>
-      </ThemeProvider>
-    );
-  }
+          <TextField
+            id="filterInput"
+            label={userSearch}
+            type="search"
+            variant="standard"
+            onChange={handleFilterActivityList}
+          />
+        </div>
+
+        {activities.map((activity) => [
+          <SingularActivity
+            key={activity.id}
+            id={activity.id}
+            name={activity.name}
+            type={activity.type}
+            description={activity.description}
+            distance={activity.distance}
+            price={activity.price}
+            city={activity.city}
+            municipality={activity.municipality}
+            county={activity.county}
+            open_hours={activity.open_hours}
+            closing_hours={activity.closing_hours}
+            website_link={activity.website_link}
+            phone={activity.phone}
+            country={activity.country}
+            subregion={activity.subregion}
+            region={activity.region}
+            geolocation={activity.geolocation}
+          />,
+        ])}
+      </Container>
+    </ThemeProvider>
+  );
 }
