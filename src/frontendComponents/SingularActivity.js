@@ -225,7 +225,7 @@ export default function SingularActivity(props) {
                 </Grid>
                 <Grid item xs={12} md={12} lg={10} xl={10}>
                   <iframe
-                    title={"titleNumber" + props.id}
+                    title={"Google Maps navigation for " + props.name}
                     key={props.id}
                     className="GoogleMap"
                     id={"GM" + props.id}
