@@ -8,7 +8,7 @@ export default function Navigation() {
     <ThemeProvider theme={theme}>
       <Box>
         <AppBar position="static">
-          <Toolbar sx={{ justifyContent: "center" }}>
+          <Toolbar>
             <Link href="/">Home</Link>
             <Link href="/AboutPage">About This Page</Link>
           </Toolbar>

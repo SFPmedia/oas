@@ -8,14 +8,7 @@ export default function AboutPage() {
   return (
     <ThemeProvider theme={theme}>
       <Grid container rowSpacing={20} justifyContent="center">
-        <Grid
-          item
-          xs={11}
-          md={11}
-          lg={11}
-          xl={11}
-          sx={{ paddingTop: "0px !important" }}
-        >
+        <Grid item xs={11} md={11} lg={11} xl={11}>
           <Typography variant="h1" textAlign="center" gutterBottom>
             About this website
           </Typography>
@@ -26,7 +19,7 @@ export default function AboutPage() {
           md={10}
           lg={5}
           xl={5}
-          sx={{ bgcolor: lightGreen[100], paddingTop: "0px !important" }}
+          sx={{ bgcolor: lightGreen[100] }}
           justifyContent="center"
         >
           <Typography variant="h2" textAlign="center" gutterBottom>
@@ -47,7 +40,7 @@ export default function AboutPage() {
           md={10}
           lg={5}
           xl={5}
-          sx={{ bgcolor: lightGreen[200], paddingTop: "0 !important" }}
+          sx={{ bgcolor: lightGreen[200] }}
         >
           <Typography variant="h2" textAlign="center" gutterBottom>
             The Future
@@ -64,7 +57,7 @@ export default function AboutPage() {
           md={10}
           lg={5}
           xl={5}
-          sx={{ bgcolor: lightGreen[300], paddingTop: "0 !important" }}
+          sx={{ bgcolor: lightGreen[300] }}
         >
           <Typography variant="h2" textAlign="center" gutterBottom>
             Tech Stack
@@ -82,7 +75,7 @@ export default function AboutPage() {
           md={10}
           lg={5}
           xl={5}
-          sx={{ bgcolor: lightGreen[500], paddingTop: "0 !important" }}
+          sx={{ bgcolor: lightGreen[500] }}
         >
           <Typography variant="h2" textAlign="center" gutterBottom>
             Contact

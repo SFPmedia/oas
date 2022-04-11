@@ -27,7 +27,6 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           position: "relative",
-          backgroundColor: lightGreen[100],
           marginBottom: "1em",
           h4: {
             fontSize: "1.5em",
@@ -46,6 +45,13 @@ const theme = createTheme({
           backgroundColor: lightGreen[200],
           color: "black",
           margin: "1em 0 0 0",
+        },
+      },
+    },
+    MuiAccordion: {
+      styleOverrides: {
+        root: {
+          backgroundColor: lightGreen[100],
         },
       },
     },

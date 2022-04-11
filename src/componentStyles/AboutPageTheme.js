@@ -19,8 +19,11 @@ const theme = createTheme({
     MuiGrid: {
       styleOverrides: {
         root: {
-          padding: "1em 1em 1em 1em",
-          margin: "0 0 0 0",
+          padding: "1em",
+          margin: "0",
+          ".MuiGrid-item": {
+            paddingTop: "0",
+          },
         },
       },
     },
