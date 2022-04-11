@@ -12,13 +12,13 @@ import SingularActivity from "./SingularActivity";
 const currentMomentNU = new Date();
 
 export default function AllActivities() {
-  const [activitiesNU, setactivitiesNU] = useState([]);
-  const [positionAccuracy, setpositionAccuracy] = useState(null);
+  const [activitiesNU, setActivitiesNU] = useState([]);
+  const [positionAccuracy, setPositionAccuracy] = useState(null);
 
   // When the react component has mounted, the useEffect checks if data can already be found in the local storage and if said data is not older than 18 hours.
-  // If data has been found and it is not older than 18 hours. Then that data will be inserted into the "activities" list. This data will then
+  // If data has been found and it is not older than 18 hours. Then that data will be inserted into the "activitiesNU" list. This data will then
   // be used to generate the list.
-  // If the 2 conditions are not true. It will retrieve a new set of data from the database on the server, via a webAPI and insert that data into "activities" instead.
+  // If the 2 conditions are not true. It will retrieve a new set of data from the database on the server, via a webAPI and insert that data into "activitiesNU" instead.
   useEffect(() => {
     if (
       localStorage.getItem("activitiesNU") &&
@@ -28,7 +28,7 @@ export default function AllActivities() {
         localStorage.getItem("activitiesNU")
       );
       const activitiesNU = getLocalStorageNU;
-      setactivitiesNU(activitiesNU);
+      setActivitiesNU(activitiesNU);
       console.log("LocalStorage activitiesNU have been found. Using those.");
     } else {
       localStorage.removeItem("activitiesNU");
@@ -47,7 +47,7 @@ export default function AllActivities() {
             localStorage.getItem("activitiesNU")
           );
           const activitiesNU = getLocalStorage;
-          setactivitiesNU(activitiesNU);
+          setActivitiesNU(activitiesNU);
           console.log(
             "LocalStorage activitiesNU were not found. Getting and using new ones."
           );
@@ -101,7 +101,7 @@ export default function AllActivities() {
       }
     }
 
-    setactivitiesNU(searchResultNU);
+    setActivitiesNU(searchResultNU);
   };
 
   const accuracySuccess = (position) => {
@@ -109,7 +109,7 @@ export default function AllActivities() {
     const accuracyToKiloMeterString = accuracyToKiloMeter
       .toString()
       .substring(0, 4);
-    return setpositionAccuracy(accuracyToKiloMeterString);
+    return setPositionAccuracy(accuracyToKiloMeterString);
   };
 
   // forceListUpdateNU() gives the user a way to clear the local storage, get the latest data from the server and then insert that into the local storage and "activitiesNU" state.
@@ -130,7 +130,7 @@ export default function AllActivities() {
           localStorage.getItem("activitiesNU")
         );
         const activitiesNU = getLocalStorage;
-        setactivitiesNU(activitiesNU);
+        setActivitiesNU(activitiesNU);
         console.log("Forced update of localstorage data and react state.");
         alert(
           "Forced update successful. The list has the newest data straight from the database."
