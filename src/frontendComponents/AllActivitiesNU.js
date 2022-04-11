@@ -2,7 +2,7 @@
 // "NU" = Near User, "ls" = local storage, "AL" = Activity List, "GM" = Google Maps
 
 import "../componentStyles/ActivityList.css";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../componentStyles/ActivityListTheme";
 import { Button, Typography, TextField } from "@mui/material";
@@ -11,16 +11,15 @@ import SingularActivity from "./SingularActivity";
 
 const currentMomentNU = new Date();
 
-export default class AllActivitiesNU extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activitiesNU: [],
-      positionAccuracy: null,
-    };
-  }
+export default function AllActivities() {
+  const [activitiesNU, setactivitiesNU] = useState([]);
+  const [positionAccuracy, setpositionAccuracy] = useState(null);
 
-  componentDidMount() {
+  // When the react component has mounted, the useEffect checks if data can already be found in the local storage and if said data is not older than 18 hours.
+  // If data has been found and it is not older than 18 hours. Then that data will be inserted into the "activities" list. This data will then
+  // be used to generate the list.
+  // If the 2 conditions are not true. It will retrieve a new set of data from the database on the server, via a webAPI and insert that data into "activities" instead.
+  useEffect(() => {
     if (
       localStorage.getItem("activitiesNU") &&
       currentMomentNU.getTime() <= localStorage.getItem("lsExpirationTimeNU")
@@ -29,7 +28,7 @@ export default class AllActivitiesNU extends React.Component {
         localStorage.getItem("activitiesNU")
       );
       const activitiesNU = getLocalStorageNU;
-      this.setState({ activitiesNU: activitiesNU });
+      setactivitiesNU(activitiesNU);
       console.log("LocalStorage activitiesNU have been found. Using those.");
     } else {
       localStorage.removeItem("activitiesNU");
@@ -48,16 +47,16 @@ export default class AllActivitiesNU extends React.Component {
             localStorage.getItem("activitiesNU")
           );
           const activitiesNU = getLocalStorage;
-          this.setState({ activitiesNU: activitiesNU });
+          setactivitiesNU(activitiesNU);
           console.log(
             "LocalStorage activitiesNU were not found. Getting and using new ones."
           );
         });
     }
-    navigator.geolocation.getCurrentPosition(this.accuracySuccess);
-  }
+    navigator.geolocation.getCurrentPosition(accuracySuccess);
+  }, []);
 
-  getCurrentLocation = (position) => {
+  const getCurrentLocation = (position) => {
     let searchResultNU = [];
     let latArr = [];
     let lonArr = [];
@@ -102,23 +101,19 @@ export default class AllActivitiesNU extends React.Component {
       }
     }
 
-    this.setState({
-      activitiesNU: searchResultNU,
-    });
+    setactivitiesNU(searchResultNU);
   };
 
-  accuracySuccess = (position) => {
+  const accuracySuccess = (position) => {
     const accuracyToKiloMeter = position.coords.accuracy / 1000;
     const accuracyToKiloMeterString = accuracyToKiloMeter
       .toString()
       .substring(0, 4);
-    return this.setState({
-      positionAccuracy: accuracyToKiloMeterString,
-    });
+    return setpositionAccuracy(accuracyToKiloMeterString);
   };
 
-  // forceListUpdateNU() gives the user a way to clear the local storage, get the latest data from the server and then insert that into the local storage and "this.state.activities" state.
-  forceListUpdateNU = () => {
+  // forceListUpdateNU() gives the user a way to clear the local storage, get the latest data from the server and then insert that into the local storage and "activitiesNU" state.
+  const forceListUpdateNU = () => {
     localStorage.removeItem("activitiesNU");
     localStorage.removeItem("lsExpirationTimeNU");
     fetch("https://sfpmedia.dk/db_api_oas/readActivities.php")
@@ -135,7 +130,7 @@ export default class AllActivitiesNU extends React.Component {
           localStorage.getItem("activitiesNU")
         );
         const activitiesNU = getLocalStorage;
-        this.setState({ activitiesNU: activitiesNU });
+        setactivitiesNU(activitiesNU);
         console.log("Forced update of localstorage data and react state.");
         alert(
           "Forced update successful. The list has the newest data straight from the database."
@@ -143,58 +138,54 @@ export default class AllActivitiesNU extends React.Component {
       });
   };
 
-  render() {
-    return (
-      <ThemeProvider theme={theme}>
-        <Container>
-          <div className="activityListTop">
-            <Button variant="contained" onClick={this.forceListUpdateNU}>
-              Force Latest Update
-            </Button>
-            <Typography variant="body1" sx={{ marginTop: "1em" }} noWrap>
-              User accuracy: {this.state.positionAccuracy}km
-            </Typography>
-          </div>
-          <Typography variant="h2" color="initial" textAlign="center">
-            Activities Near You
+  return (
+    <ThemeProvider theme={theme}>
+      <Container>
+        <div className="activityListTop">
+          <Button variant="contained" onClick={forceListUpdateNU}>
+            Force Latest Update
+          </Button>
+          <Typography variant="body1" sx={{ marginTop: "1em" }} noWrap>
+            User accuracy: {positionAccuracy}km
           </Typography>
-          <div id="filterArea">
-            <TextField
-              id="filterInputNU"
-              label={"Search near you"}
-              type="number"
-              variant="standard"
-              onChange={() =>
-                navigator.geolocation.getCurrentPosition(
-                  this.getCurrentLocation
-                )
-              }
-            />
-          </div>
-          {this.state.activitiesNU.map((activityNU) => [
-            <SingularActivity
-              key={activityNU.id}
-              id={activityNU.id}
-              name={activityNU.name}
-              type={activityNU.type}
-              description={activityNU.description}
-              distance={activityNU.distance}
-              price={activityNU.price}
-              city={activityNU.city}
-              municipality={activityNU.municipality}
-              county={activityNU.county}
-              open_hours={activityNU.open_hours}
-              closing_hours={activityNU.closing_hours}
-              website_link={activityNU.website_link}
-              phone={activityNU.phone}
-              country={activityNU.country}
-              subregion={activityNU.subregion}
-              region={activityNU.region}
-              geolocation={activityNU.geolocation}
-            />,
-          ])}
-        </Container>
-      </ThemeProvider>
-    );
-  }
+        </div>
+        <Typography variant="h2" color="initial" textAlign="center">
+          Activities Near You
+        </Typography>
+        <div id="filterArea">
+          <TextField
+            id="filterInputNU"
+            label={"Search near you"}
+            type="number"
+            variant="standard"
+            onChange={() =>
+              navigator.geolocation.getCurrentPosition(getCurrentLocation)
+            }
+          />
+        </div>
+        {activitiesNU.map((activityNU) => [
+          <SingularActivity
+            key={activityNU.id}
+            id={activityNU.id}
+            name={activityNU.name}
+            type={activityNU.type}
+            description={activityNU.description}
+            distance={activityNU.distance}
+            price={activityNU.price}
+            city={activityNU.city}
+            municipality={activityNU.municipality}
+            county={activityNU.county}
+            open_hours={activityNU.open_hours}
+            closing_hours={activityNU.closing_hours}
+            website_link={activityNU.website_link}
+            phone={activityNU.phone}
+            country={activityNU.country}
+            subregion={activityNU.subregion}
+            region={activityNU.region}
+            geolocation={activityNU.geolocation}
+          />,
+        ])}
+      </Container>
+    </ThemeProvider>
+  );
 }
