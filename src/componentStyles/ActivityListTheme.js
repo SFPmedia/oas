@@ -45,6 +45,9 @@ const theme = createTheme({
           backgroundColor: lightGreen[200],
           color: "black",
           margin: "1em 0 0 0",
+          "&:hover": {
+            backgroundColor: lightGreen[300],
+          },
         },
       },
     },
