@@ -1,5 +1,6 @@
 import { createTheme } from "@mui/material";
 import { lightGreen } from "@mui/material/colors";
+import { green } from "@mui/material/colors";
 
 const theme = createTheme({
   typography: {
@@ -23,6 +24,12 @@ const theme = createTheme({
           ".activityListTop": {
             display: "flex",
             justifyContent: "space-between",
+            ".MuiSvgIcon-root": {
+              marginTop: "0.75em",
+              color: lightGreen[100],
+              backgroundColor: green[900],
+              borderRadius: "100%",
+            },
           },
           "#filterArea": {
             display: "flex",
@@ -42,6 +49,9 @@ const theme = createTheme({
               zIndex: "1",
               paddingLeft: "5%",
               paddingRight: "15%",
+            },
+            ".MuiTypography-root": {
+              marginTop: "2em",
             },
           },
         },

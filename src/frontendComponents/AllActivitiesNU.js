@@ -4,9 +4,10 @@
 import React, { useState, useEffect } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../componentStyles/ActivityListTheme";
-import { Button, Typography, TextField } from "@mui/material";
+import { Button, Typography, TextField, Tooltip } from "@mui/material";
 import Container from "@mui/material/Container";
 import SingularActivity from "./SingularActivity";
+import InfoIcon from "@mui/icons-material/Info";
 
 const currentMomentNU = new Date();
 
@@ -144,9 +145,9 @@ export default function AllActivities() {
           <Button variant="contained" onClick={forceListUpdateNU}>
             Force Latest Update
           </Button>
-          <Typography variant="body1" sx={{ marginTop: "1em" }} noWrap>
-            User accuracy: {positionAccuracy}km
-          </Typography>
+          <Tooltip title={"User accuracy: " + positionAccuracy + "km"}>
+            <InfoIcon />
+          </Tooltip>
         </div>
         <Typography variant="h2" color="initial" textAlign="center">
           Activities Near You
@@ -161,6 +162,9 @@ export default function AllActivities() {
               navigator.geolocation.getCurrentPosition(getCurrentLocation)
             }
           />
+          <Typography variant="body2" color="initial">
+            km
+          </Typography>
         </div>
         {activitiesNU.map((activityNU) => [
           <SingularActivity
