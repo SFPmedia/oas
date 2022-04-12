@@ -20,6 +20,28 @@ const theme = createTheme({
           backgroundColor: lightGreen[50],
           borderRadius: "10px",
           paddingBottom: "0.5em",
+          ".activityListTop": {
+            display: "flex",
+            justifyContent: "space-between",
+          },
+          "#filterArea": {
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "25px",
+            marginBottom: "50px",
+            height: "25px",
+            ".dropdownSL": {
+              position: "relative",
+              marginTop: "15px",
+              marginRight: "0.2em",
+            },
+            ".dropdownContentSL": {
+              position: "absolute",
+              minWidth: "150px",
+              boxShadow: "0px 8px 16px 0px rgba(0, 0, 0, 0.2)",
+              zIndex: "1",
+            },
+          },
         },
       },
     },
