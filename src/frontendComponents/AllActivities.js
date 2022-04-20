@@ -31,7 +31,7 @@ export default function AllActivities() {
   const handleSearchSelect = (Search) => {
     dispatch(searchSelect(Search));
   };
-  const forceUpdate = () => {
+  const handleForceUpdate = () => {
     dispatch(forceUpdateActivities());
   };
 
@@ -51,7 +51,7 @@ export default function AllActivities() {
   return (
     <ThemeProvider theme={theme}>
       <Container>
-        <Button variant="contained" onClick={forceUpdate}>
+        <Button variant="contained" onClick={handleForceUpdate}>
           Force Latest Update
         </Button>
         <Typography variant="h2" textAlign="center">
