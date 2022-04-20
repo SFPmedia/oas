@@ -1,210 +1,42 @@
 // Abbreviation explanations:
 // "ls" = local storage, "SL" = Search List
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../componentStyles/ActivityListTheme";
 import { Container, Button, Typography, TextField } from "@mui/material";
 import SingularActivity from "./SingularActivity";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  forceUpdateActivities,
+  filterActivityList,
+  searchSelect,
+  searchSelectVisible,
+} from "../actions";
 
 export default function AllActivities() {
-  const [activities, setActivities] = useState([]);
-  const [userSearch, setUserSearch] = useState(" Name");
-  const [searchInput, setSearchInput] = useState("name");
-  const [searchSelectVisibleStatus, setSearchSelectVisibleStatus] =
-    useState(false);
+  const activities = useSelector((state) => state.activities);
+  const userSearch = useSelector((state) => state.userSearch);
+  const searchInput = useSelector((state) => state.searchInput);
+  const searchSelectVisibleStatus = useSelector(
+    (state) => state.searchSelectVisibleStatus
+  );
 
-  // When the react component has mounted, the useEffect checks if data can already be found in the local storage and if said data is not older than 18 hours.
-  // If data has been found and it is not older than 18 hours. Then that data will be inserted into the "activities" list. This data will then
-  // be used to generate the list.
-  // If the 2 conditions are not true. It will retrieve a new set of data from the database on the server, via a webAPI and insert that data into "activities" instead.
-  useEffect(() => {
-    if (
-      localStorage.getItem("activities") &&
-      new Date().getTime() <= localStorage.getItem("lsExpirationTime")
-    ) {
-      const getLocalStorage = JSON.parse(localStorage.getItem("activities"));
-      const activities = getLocalStorage;
-      setActivities(activities);
-      console.log("LocalStorage activities have been found. Using those.");
-    } else {
-      localStorage.removeItem("activities");
-      localStorage.removeItem("lsExpirationTime");
+  const dispatch = useDispatch();
 
-      fetch("https://sfpmedia.dk/db_api_oas/readActivities.php")
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          localStorage.setItem("activities", JSON.stringify(data));
-          localStorage.setItem(
-            "lsExpirationTime",
-            JSON.stringify(new Date().getTime() + 1000 * 60 * 60 * 18)
-          );
-          const getLocalStorage = JSON.parse(
-            localStorage.getItem("activities")
-          );
-          const activities = getLocalStorage;
-          setActivities(activities);
-          console.log(
-            "LocalStorage activities were not found. Getting and using new ones."
-          );
-        });
-    }
-  }, []);
+  const handleSearchSelectVisible = () => {
+    dispatch(searchSelectVisible(searchSelectVisibleStatus));
+  };
 
-  // Whenever a person types in the search bar, this function filters through the entire list and only returns a list that corresponds with
-  // what the user is searching for
+  const handleSearchSelect = (Search) => {
+    dispatch(searchSelect(Search));
+  };
+  const forceUpdate = () => {
+    dispatch(forceUpdateActivities());
+  };
+
   const handleFilterActivityList = () => {
-    const filterInputValue = document.getElementById("filterInput").value;
-    const getLocalStorage = JSON.parse(localStorage.getItem("activities"));
-    let searchResult = [];
-
-    for (let i = 0; i < getLocalStorage.length; i++) {
-      var filterThisInput = getLocalStorage[i].name.toLowerCase();
-      let userSearchInput = searchInput;
-
-      switch (userSearchInput) {
-        case "name":
-          filterThisInput = getLocalStorage[i].name.toLowerCase();
-          break;
-        case "type":
-          filterThisInput = getLocalStorage[i].type.toLowerCase();
-          break;
-        case "description":
-          filterThisInput = getLocalStorage[i].description.toLowerCase();
-          break;
-        case "city":
-          filterThisInput = getLocalStorage[i].city.toLowerCase();
-          break;
-        case "municipality":
-          filterThisInput = getLocalStorage[i].municipality.toLowerCase();
-          break;
-        case "county":
-          filterThisInput = getLocalStorage[i].county.toLowerCase();
-          break;
-        case "opening-hours":
-          filterThisInput = getLocalStorage[i].open_hours.toLowerCase();
-          break;
-        case "closing-hours":
-          filterThisInput = getLocalStorage[i].closing_hours.toLowerCase();
-          break;
-        case "country":
-          filterThisInput = getLocalStorage[i].country.toLowerCase();
-          break;
-        case "subregion":
-          filterThisInput = getLocalStorage[i].subregion.toLowerCase();
-          break;
-        case "region":
-          filterThisInput = getLocalStorage[i].region.toLowerCase();
-          break;
-
-        default:
-          filterThisInput = getLocalStorage[i].name.toLowerCase();
-      }
-
-      var filteredInput = filterThisInput.indexOf(
-        filterInputValue.toLowerCase()
-      );
-      if (filteredInput > -1) {
-        searchResult.push(getLocalStorage[i]);
-      }
-    }
-    setActivities(searchResult);
-  };
-
-  // Determines whether or not the list is shown or not, when the button "SEARCH BY" is clicked.
-  const searchSelectVisible = () => {
-    if (searchSelectVisibleStatus === false) {
-      return setSearchSelectVisibleStatus(true);
-    } else {
-      return setSearchSelectVisibleStatus(false);
-    }
-  };
-
-  // The searchSelect() function allows the user to choose which type of information the filter should search by.
-  const searchSelect = (Search) => {
-    var text;
-    var userSearchType;
-    var searchType = Search;
-    switch (searchType) {
-      case "Name":
-        text = " Name";
-        userSearchType = "name";
-        break;
-      case "Type":
-        text = " Type";
-        userSearchType = "type";
-        break;
-      case "Description":
-        text = " Description";
-        userSearchType = "description";
-        break;
-      case "City":
-        text = " City";
-        userSearchType = "city";
-        break;
-      case "Municipality":
-        text = " Municipality";
-        userSearchType = "municipality";
-        break;
-      case "County":
-        text = " County";
-        userSearchType = "county";
-        break;
-      case "Opening-Hours":
-        text = " Opening Hours";
-        userSearchType = "opening-hours";
-        break;
-      case "Closing-Hours":
-        text = " Closing Hours";
-        userSearchType = "closing-hours";
-        break;
-      case "Country":
-        text = " Country";
-        userSearchType = "country";
-        break;
-      case "Subregion":
-        text = " Subregion";
-        userSearchType = "subregion";
-        break;
-      case "Region":
-        text = " Region";
-        userSearchType = "region";
-        break;
-
-      default:
-        text = " Name";
-        userSearchType = "name";
-    }
-    setUserSearch(text);
-    setSearchInput(userSearchType);
-    setSearchSelectVisibleStatus(false);
-  };
-
-  // forceListUpdate() gives the user a way to clear the local storage, get the latest data from the server and then insert that into the local storage and "activities" state.
-  const forceListUpdate = () => {
-    localStorage.removeItem("activities");
-    localStorage.removeItem("lsExpirationTime");
-
-    fetch("https://sfpmedia.dk/db_api_oas/readActivities.php")
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        localStorage.setItem("activities", JSON.stringify(data));
-        localStorage.setItem(
-          "lsExpirationTime",
-          JSON.stringify(new Date().getTime() + 1000 * 60 * 60 * 18)
-        );
-        const getLocalStorage = JSON.parse(localStorage.getItem("activities"));
-        const activities = getLocalStorage;
-        setActivities(activities);
-        console.log("Forced update of localstorage data and react state.");
-        alert(
-          "Forced update successful. The list has the newest data straight from the database."
-        );
-      });
+    dispatch(filterActivityList(searchInput));
   };
 
   // searchSelectColor() simply highlights the color of the selected search criteria.
@@ -219,7 +51,7 @@ export default function AllActivities() {
   return (
     <ThemeProvider theme={theme}>
       <Container>
-        <Button variant="contained" onClick={forceListUpdate}>
+        <Button variant="contained" onClick={forceUpdate}>
           Force Latest Update
         </Button>
         <Typography variant="h2" textAlign="center">
@@ -231,7 +63,7 @@ export default function AllActivities() {
             <Button
               variant="contained"
               sx={{ marginTop: "0" }}
-              onClick={searchSelectVisible}
+              onClick={handleSearchSelectVisible}
             >
               Search by
             </Button>
@@ -245,7 +77,7 @@ export default function AllActivities() {
             >
               <Button
                 variant="contained"
-                onClick={() => searchSelect("Name")}
+                onClick={() => handleSearchSelect("Name")}
                 style={{
                   backgroundColor: searchSelectColor("name"),
                 }}
@@ -255,7 +87,7 @@ export default function AllActivities() {
 
               <Button
                 variant="contained"
-                onClick={() => searchSelect("Type")}
+                onClick={() => handleSearchSelect("Type")}
                 style={{
                   backgroundColor: searchSelectColor("type"),
                 }}
@@ -264,7 +96,7 @@ export default function AllActivities() {
               </Button>
               <Button
                 variant="contained"
-                onClick={() => searchSelect("Description")}
+                onClick={() => handleSearchSelect("Description")}
                 style={{
                   backgroundColor: searchSelectColor("description"),
                 }}
@@ -273,7 +105,7 @@ export default function AllActivities() {
               </Button>
               <Button
                 variant="contained"
-                onClick={() => searchSelect("City")}
+                onClick={() => handleSearchSelect("City")}
                 style={{
                   backgroundColor: searchSelectColor("city"),
                 }}
@@ -282,7 +114,7 @@ export default function AllActivities() {
               </Button>
               <Button
                 variant="contained"
-                onClick={() => searchSelect("Municipality")}
+                onClick={() => handleSearchSelect("Municipality")}
                 style={{
                   backgroundColor: searchSelectColor("municipality"),
                 }}
@@ -291,7 +123,7 @@ export default function AllActivities() {
               </Button>
               <Button
                 variant="contained"
-                onClick={() => searchSelect("County")}
+                onClick={() => handleSearchSelect("County")}
                 style={{
                   backgroundColor: searchSelectColor("county"),
                 }}
@@ -300,7 +132,7 @@ export default function AllActivities() {
               </Button>
               <Button
                 variant="contained"
-                onClick={() => searchSelect("Opening-Hours")}
+                onClick={() => handleSearchSelect("Opening-Hours")}
                 style={{
                   backgroundColor: searchSelectColor("opening-hours"),
                 }}
@@ -309,7 +141,7 @@ export default function AllActivities() {
               </Button>
               <Button
                 variant="contained"
-                onClick={() => searchSelect("Closing-Hours")}
+                onClick={() => handleSearchSelect("Closing-Hours")}
                 style={{
                   backgroundColor: searchSelectColor("closing-hours"),
                 }}
@@ -318,7 +150,7 @@ export default function AllActivities() {
               </Button>
               <Button
                 variant="contained"
-                onClick={() => searchSelect("Country")}
+                onClick={() => handleSearchSelect("Country")}
                 style={{
                   backgroundColor: searchSelectColor("country"),
                 }}
@@ -327,7 +159,7 @@ export default function AllActivities() {
               </Button>
               <Button
                 variant="contained"
-                onClick={() => searchSelect("Subregion")}
+                onClick={() => handleSearchSelect("Subregion")}
                 style={{
                   backgroundColor: searchSelectColor("subregion"),
                 }}
@@ -336,7 +168,7 @@ export default function AllActivities() {
               </Button>
               <Button
                 variant="contained"
-                onClick={() => searchSelect("Region")}
+                onClick={() => handleSearchSelect("Region")}
                 style={{
                   backgroundColor: searchSelectColor("region"),
                 }}
