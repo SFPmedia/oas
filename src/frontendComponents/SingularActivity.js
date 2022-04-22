@@ -232,7 +232,6 @@ export default function SingularActivity(props) {
                     src={props.geolocation}
                     width="100%"
                     height="450"
-                    allowFullScreen=""
                     loading="lazy"
                   ></iframe>
                 </Grid>
