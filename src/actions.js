@@ -97,56 +97,58 @@ export const filterActivityList = (searchInputProp) => {
 
     const searchInput = searchInputProp;
 
-    for (let i = 0; i < getLocalStorage.length; i++) {
-      var filterThisInput = getLocalStorage[i].name.toLowerCase();
+    getLocalStorage.map((activity) => {
+      var filterThisInput = activity.name.toLowerCase();
       const userSearchInput = searchInput;
 
       switch (userSearchInput) {
         case "name":
-          filterThisInput = getLocalStorage[i].name.toLowerCase();
+          filterThisInput = activity.name.toLowerCase();
           break;
         case "type":
-          filterThisInput = getLocalStorage[i].type.toLowerCase();
+          filterThisInput = activity.type.toLowerCase();
           break;
         case "description":
-          filterThisInput = getLocalStorage[i].description.toLowerCase();
+          filterThisInput = activity.description.toLowerCase();
           break;
         case "city":
-          filterThisInput = getLocalStorage[i].city.toLowerCase();
+          filterThisInput = activity.city.toLowerCase();
           break;
         case "municipality":
-          filterThisInput = getLocalStorage[i].municipality.toLowerCase();
+          filterThisInput = activity.municipality.toLowerCase();
           break;
         case "county":
-          filterThisInput = getLocalStorage[i].county.toLowerCase();
+          filterThisInput = activity.county.toLowerCase();
           break;
         case "opening-hours":
-          filterThisInput = getLocalStorage[i].open_hours.toLowerCase();
+          filterThisInput = activity.open_hours.toLowerCase();
           break;
         case "closing-hours":
-          filterThisInput = getLocalStorage[i].closing_hours.toLowerCase();
+          filterThisInput = activity.closing_hours.toLowerCase();
           break;
         case "country":
-          filterThisInput = getLocalStorage[i].country.toLowerCase();
+          filterThisInput = activity.country.toLowerCase();
           break;
         case "subregion":
-          filterThisInput = getLocalStorage[i].subregion.toLowerCase();
+          filterThisInput = activity.subregion.toLowerCase();
           break;
         case "region":
-          filterThisInput = getLocalStorage[i].region.toLowerCase();
+          filterThisInput = activity.region.toLowerCase();
           break;
 
         default:
-          filterThisInput = getLocalStorage[i].name.toLowerCase();
+          filterThisInput = activity.name.toLowerCase();
       }
 
       var filteredInput = filterThisInput.indexOf(
         filterInputValue.toLowerCase()
       );
       if (filteredInput > -1) {
-        searchResult.push(getLocalStorage[i]);
+        return searchResult.push(activity);
+      } else {
+        return null;
       }
-    }
+    });
     dispatch({
       type: "SET_ACTIVITIES",
       payload: searchResult,
@@ -256,18 +258,16 @@ export const getCurrentLocation = (position) => {
     let searchResultNU = [];
     let latArr = [];
     let lonArr = [];
-    let distanceResult = [];
-    let i;
     let k;
     let userInput = document.getElementById("filterInputNU").value;
 
     const getLocalStorageNU = JSON.parse(localStorage.getItem("activities"));
     const activityArr = getLocalStorageNU;
 
-    for (i = 0; i < activityArr.length; i++) {
-      latArr.push(activityArr[i].latitude);
-      lonArr.push(activityArr[i].longitude);
-    }
+    activityArr.map((singularActivityArr) => {
+      latArr.push(singularActivityArr.latitude);
+      return lonArr.push(singularActivityArr.longitude);
+    });
 
     for (k = 0; k < latArr.length; k++) {
       const lat1 = activityArr[k].latitude;
@@ -290,10 +290,7 @@ export const getCurrentLocation = (position) => {
       const kmConverstion = d / 1000;
 
       if (kmConverstion < userInput) {
-        distanceResult.push(1);
         searchResultNU.push(getLocalStorageNU[k]);
-      } else {
-        distanceResult.push(0);
       }
     }
     return dispatch({
