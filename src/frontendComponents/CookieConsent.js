@@ -40,7 +40,6 @@ export default function CookieConsent() {
   const redoCookieChoice = () => {
     localStorage.removeItem("CookieConsentStatus");
     dispatch(cookieConsentStatus(null));
-    handleCookieConsentDisplay();
   };
 
   useEffect(() => {
