@@ -15,6 +15,11 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case "SET_COOKIECONSENTSTATUS":
+      return {
+        ...state,
+        cookieConsentChoiceMade: action.payload,
+      };
     case "SET_ACTIVITIES":
       return {
         ...state,

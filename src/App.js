@@ -5,6 +5,7 @@ import AboutPage from "./frontendComponents/AboutPage";
 import AllActivities from "./frontendComponents/AllActivities";
 import AllActivitiesNU from "./frontendComponents/AllActivitiesNU";
 import FourOhFour from "./frontendComponents/FourOhFour";
+import CookieConsent from "./frontendComponents/CookieConsent";
 import { CssBaseline, Grid, Typography } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "./componentStyles/ActivityListTheme";
@@ -48,6 +49,7 @@ function App() {
                   <Grid item xs={12} md={10} lg={6} xl={5}>
                     <AllActivitiesNU />
                   </Grid>
+                  <CookieConsent />
                 </Grid>
               </ThemeProvider>
             }
