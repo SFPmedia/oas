@@ -17,15 +17,15 @@ const theme = createTheme({
     MuiContainer: {
       styleOverrides: {
         root: {
+          maxWidth: "600px !important",
           position: "fixed",
-          width: "20%",
           backgroundColor: lightGreen[50],
           borderRadius: "10px",
           paddingBottom: "0.5em",
           bottom: "0px",
+          opacity: "90%",
           ".consentButtons": {
             position: "static",
-            width: "80%",
             justifyContent: "center",
           },
         },

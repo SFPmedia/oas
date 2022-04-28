@@ -20,8 +20,8 @@ export default function CookieConsent() {
     } else {
       localStorage.clear();
       sessionStorage.clear();
+      window.history.go(-1);
     }
-    console.log(cookieStatusWatcher);
   };
 
   const handleCookieConsentDisplay = () => {
@@ -37,11 +37,6 @@ export default function CookieConsent() {
     }
   };
 
-  const redoCookieChoice = () => {
-    localStorage.removeItem("CookieConsentStatus");
-    dispatch(cookieConsentStatus(null));
-  };
-
   useEffect(() => {
     handleCookieConsentDisplay();
   }, [cookieStatusWatcher]);
@@ -49,20 +44,16 @@ export default function CookieConsent() {
   return (
     <ThemeProvider theme={theme}>
       {handleCookieConsentDisplay() ? (
-        <Container sx={{ opacity: "75%" }}>
-          <Container className="consentButtons">
-            <Button variant="contained" onClick={() => redoCookieChoice()}>
-              COOKIE CHOICE
-            </Button>
-          </Container>
-        </Container>
+        <Container sx={{ display: "none" }}></Container>
       ) : (
-        <Container>
+        <Container xs={12} md={10} lg={6} xl={5}>
           <Typography variant="h5" textAlign="center">
             Cookie Consent
           </Typography>
           <Typography variant="body2" textAlign="center">
-            Allowing cookies will improve performance
+            Cookies are essential for the use of this website
+            <br />
+            They will not be used by any third parties
           </Typography>
           <Container className="consentButtons">
             <Button
@@ -70,12 +61,15 @@ export default function CookieConsent() {
               onClick={() => handleCookieConsent(false)}
             >
               I DO NOT CONSENT
+              <br />
+              TAKE ME BACK
             </Button>
             <Button
               variant="contained"
               onClick={() => handleCookieConsent(true)}
             >
               I CONSENT
+              <br /> I WILL STAY
             </Button>
           </Container>
         </Container>

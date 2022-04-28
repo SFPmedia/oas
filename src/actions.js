@@ -6,8 +6,7 @@ export const fetchActivities = () => {
   return async (dispatch) => {
     if (
       localStorage.getItem("activities") &&
-      new Date().getTime() <= localStorage.getItem("lsExpirationTime") &&
-      localStorage.getItem("CookieConsentStatus") === "true"
+      new Date().getTime() <= localStorage.getItem("lsExpirationTime")
     ) {
       const getLocalStorage = JSON.parse(localStorage.getItem("activities"));
       const activities = getLocalStorage;
@@ -20,7 +19,7 @@ export const fetchActivities = () => {
         payload: activities,
       });
       console.log("LocalStorage activities have been found. Using those.");
-    } else if (localStorage.getItem("CookieConsentStatus") === "true") {
+    } else {
       localStorage.removeItem("activities");
       localStorage.removeItem("lsExpirationTime");
 
@@ -40,31 +39,6 @@ export const fetchActivities = () => {
           const activities = getLocalStorage;
           console.log(
             "LocalStorage activities were not found. Getting and using new ones."
-          );
-          dispatch({
-            type: "SET_ACTIVITIES",
-            payload: activities,
-          });
-          dispatch({
-            type: "SET_ACTIVITIESNU",
-            payload: activities,
-          });
-        });
-    } else {
-      localStorage.removeItem("activities");
-      localStorage.removeItem("lsExpirationTime");
-      console.log(localStorage.getItem("CookieConsentStatus"));
-
-      fetch("https://sfpmedia.dk/db_api_oas/readActivities.php")
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          const getLocalStorage = JSON.stringify(data);
-          const getLocalStorageParsed = JSON.parse(getLocalStorage);
-          const activities = getLocalStorageParsed;
-          console.log(
-            "LocalStorage has NOT been used. Fetched data has been updated to the state directly."
           );
           dispatch({
             type: "SET_ACTIVITIES",
