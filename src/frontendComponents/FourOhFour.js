@@ -1,23 +1,23 @@
 import React from "react";
-import { Typography } from "@mui/material";
+import { Typography, Container } from "@mui/material";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "../componentStyles/FourOhFourTheme";
 
 const FourOhFour = () => {
   return (
-    <>
-      <Typography
-        variant="h1"
-        color="danger"
-        textAlign="center"
-        sx={{ marginTop: "1em" }}
-        gutterBottom
-      >
-        You took a wrong turn.
-      </Typography>
-      <Typography variant="h2" color="initial" textAlign="center">
-        Please use the navigation at the top of the screen to return to one of
-        the other pages.
-      </Typography>
-    </>
+    <ThemeProvider theme={theme}>
+      <Container>
+        <Typography variant="h1" textAlign="center" gutterBottom>
+          ERROR 404
+        </Typography>
+        <Typography variant="h2" textAlign="center" gutterBottom>
+          PAGE NOT FOUND
+        </Typography>
+        <Typography variant="h3" textAlign="center" gutterBottom>
+          Please use the links at the top of the page, to move to a known page.
+        </Typography>
+      </Container>
+    </ThemeProvider>
   );
 };
 
