@@ -63,7 +63,7 @@ export default function AboutPage() {
             Tech Stack
           </Typography>
           <Typography variant="body1" textAlign="center">
-            HTML & JavaScript
+            HTML & JavaScript (ReactJS)
             <br />
             CSS & Material UI <br />
             MySQL & PHP
