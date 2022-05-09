@@ -14,7 +14,7 @@ const FourOhFour = () => {
           PAGE NOT FOUND
         </Typography>
         <Typography variant="h3" textAlign="center" gutterBottom>
-          Please use the links at the top of the page, to move to a known page.
+          Please use the links at the top of the page, to move to a known page
         </Typography>
       </Container>
     </ThemeProvider>
